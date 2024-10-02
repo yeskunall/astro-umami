@@ -1,7 +1,7 @@
 {
   "name": "@yeskunall/astro-umami",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Add Umami Analytics to your Astro website",
   "author": {
     "email": "hey@kimchiii.space",
