@@ -1,0 +1,16 @@
+{
+  "eslint.codeAction.showDocumentation": {
+    "enable": true
+  },
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.formatOnSave": true,
+  "eslint.format.enable": true,
+  "eslint.useFlatConfig": true,
+  "eslint.validate": [
+    "javascript",
+    "json",
+    "jsonc",
+    "typescript",
+    "yaml"
+  ]
+}

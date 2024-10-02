@@ -1,0 +1,21 @@
+{
+  "name": "playground",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "astro check && astro build",
+    "dev": "astro dev",
+    "preview": "astro preview",
+    "start": "astro dev"
+  },
+  "dependencies": {
+    "@yeskunall/astro-umami": "workspace:*",
+    "astro": "4.15.9",
+    "astro-integration-kit": "0.16.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.3",
+    "typescript": "5.6.2"
+  }
+}
