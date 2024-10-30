@@ -9,7 +9,7 @@
 - Prevents Google Tag Manager from stripping custom `data-*` attributes
 - Supports all [configuration](https://umami.is/docs/tracker-configuration) options, unlike [`astro-analytics`](https://github.com/Destiner/astro-analytics)
 - (_Optionally_) Serve the tracking script using [Partytown](https://partytown.builder.io/) (_**planned in an upcoming release**_)
-- Actively maintained
+- __Actively maintained__ (support for Astro 5 since `v0.0.2`)
 
 ## Usage
 
