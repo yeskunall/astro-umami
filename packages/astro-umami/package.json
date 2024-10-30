@@ -43,13 +43,13 @@
     "dev": "tsup --format esm,cjs --watch"
   },
   "peerDependencies": {
-    "astro": "^4.15.9"
+    "astro": "^4.16.7 || ^5.0.0"
   },
   "dependencies": {
     "astro-integration-kit": "0.16.1"
   },
   "devDependencies": {
-    "eslint": "9.11.1",
-    "tsup": "8.3.0"
+    "eslint": "9.13.0",
+    "tsup": "8.3.5"
   }
 }
