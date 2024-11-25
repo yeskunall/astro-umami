@@ -1,7 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
-  "dependencyDashboard": true,
+  "extends": ["config:recommended", ":disableDependencyDashboard"],
   "postUpdateOptions": ["pnpmDedupe"],
   "packageRules": [
     {
