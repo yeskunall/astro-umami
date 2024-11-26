@@ -43,7 +43,7 @@ export default defineConfig({
 });
 ```
 
-###### For all configurable options, see the exported [interface](./src/lib/umami-analytics.ts#5).
+###### For all configurable options, see the exported [interface](https://github.com/yeskunall/astro-umami/blob/main/packages/astro-umami/src/lib/umami-analytics.ts#L5).
 
 #### License
 
