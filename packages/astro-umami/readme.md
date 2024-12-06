@@ -1,27 +1,27 @@
-# @yeskunall/astro-umami
+# astro-umami
 
 > An [Astro integration](https://docs.astro.build/en/guides/integrations-guide/) to add [Umami Analytics](https://umami.is/) to your website.
 
-## Highlights
+## 🪶 Highlights
 
 - Automatically detects if you’re using [View Transitions](https://docs.astro.build/en/guides/view-transitions/) and adds a [`data-astro-rerun`](https://docs.astro.build/en/guides/view-transitions/#data-astro-rerun) attribute
 - Disables events and pageviews during development
 - Prevents Google Tag Manager from stripping custom `data-*` attributes
 - Supports all [configuration](https://umami.is/docs/tracker-configuration) options, unlike [`astro-analytics`](https://github.com/Destiner/astro-analytics)
 - (_Optionally_) Serve the tracking script using [Partytown](https://partytown.builder.io/) (_**planned in an upcoming release**_)
-- __Actively maintained__ (support for Astro 5 since `v0.0.2`)
+- __Actively maintained (Astro 5 ready)__
 
-## Usage
+## 🛟 Usage
 
 ### Install
 
-Astro includes an `astro add` command to automate the setup of official integrations. Enable Umami analytics in your Astro project with the following:
+Enable Umami analytics in your Astro project with the following:
 
 ```sh
 pnpm astro add @yeskunall/astro-umami
 ```
 
- This will install `@yeskunall/astro-umami` and make the appropriate changes to your `astro.config.mjs` file in one step.
+This will install `@yeskunall/astro-umami` and make the appropriate changes to your Astro config automatically.
 
 ### Manual install
 
@@ -43,8 +43,10 @@ export default defineConfig({
 });
 ```
 
-###### For all configurable options, see the exported [interface](https://github.com/yeskunall/astro-umami/blob/main/packages/astro-umami/src/lib/umami-analytics.ts#L5).
+###### 📖 For all configurable options, see the exported [interface](https://github.com/yeskunall/astro-umami/blob/main/packages/astro-umami/src/lib/umami-analytics.ts#L5).
 
-#### License
+---
+
+#### ⚖️ License
 
 [MIT](https://github.com/yeskunall/astro-umami/blob/main/license) © [Kunall Banerjee](https://kimchiii.space/)
