@@ -55,50 +55,49 @@ export async function getInjectableWebAnalyticsContent({
   } = config;
 
   const hostname = new URL(endpointUrl).hostname;
+  const configAsString = [
+    !autotrack ? `script.setAttribute("data-auto-track", "${autotrack}")` : "",
+    domains.length > 0 ? `script.setAttribute("data-domains", "${domains.join(",")}")` : "",
+    hostUrl !== "https://cloud.umami.is" ? `script.setAttribute("data-host-url", "${hostUrl}")` : "",
+  ].filter(Boolean).join("");
 
   if (mode === "development") {
     return `
-      localStorage.setItem("umami.disabled", "1");
+      localStorage.setItem("umami.disabled", "1")
 
-      var script = document.createElement("script");
-      var viewTransitionsEnabled = document.querySelector("meta[name='astro-view-transitions-enabled']")?.content;
+      var script = document.createElement("script")
+      var viewTransitionsEnabled = document.querySelector("meta[name='astro-view-transitions-enabled']")?.content
 
-      script.setAttribute("src", "https://${hostname}/${trackerScriptName}");
-      script.setAttribute("defer", true);
-      script.setAttribute("data-website-id", "${id}");
-
-      ${!autotrack ? `script.setAttribute("data-auto-track", "${autotrack}")` : ""};
-      ${domains.length > 0 ? `script.setAttribute("data-domains", "${domains.join(",")}")` : ""};
-      ${hostUrl !== "https://cloud.umami.is" ? `script.setAttribute("data-host-url", "${hostUrl}")` : ""};
+      script.setAttribute("src", "https://${hostname}/${trackerScriptName}")
+      script.setAttribute("defer", true)
+      script.setAttribute("data-website-id", "${id}")
+      ${configAsString}
 
       if (!!viewTransitionsEnabled) {
-        script.setAttribute("data-astro-rerun", true);
+        script.setAttribute("data-astro-rerun", true)
       }
 
-      var head = document.querySelector("head");
-      head.appendChild(script);
+      var head = document.querySelector("head")
+      head.appendChild(script)
     `;
   }
 
   return `
     (function () {
-      var script = document.createElement("script");
-      var viewTransitionsEnabled = document.querySelector("meta[name='astro-view-transitions-enabled']")?.content;
+      var script = document.createElement("script")
+      var viewTransitionsEnabled = document.querySelector("meta[name='astro-view-transitions-enabled']")?.content
 
-      script.setAttribute("src", "https://${hostname}/${trackerScriptName}");
-      script.setAttribute("defer", true);
-      script.setAttribute("data-website-id", "${id}");
-
-      ${!autotrack ? `script.setAttribute("data-auto-track", "${autotrack}")` : ""};
-      ${domains.length > 0 ? `script.setAttribute("data-domains", "${domains.join(",")}")` : ""};
-      ${hostUrl !== "https://cloud.umami.is" ? `script.setAttribute("data-host-url", "${hostUrl}")` : ""};
+      script.setAttribute("src", "https://${hostname}/${trackerScriptName}")
+      script.setAttribute("defer", true)
+      script.setAttribute("data-website-id", "${id}")
+      ${configAsString}
 
       if (!!viewTransitionsEnabled) {
-        script.setAttribute("data-astro-rerun", true);
+        script.setAttribute("data-astro-rerun", true)
       }
 
-      var head = document.querySelector("head");
-      head.appendChild(script);
-    })();
+      var head = document.querySelector("head")
+      head.appendChild(script)
+    })()
   `;
 }
