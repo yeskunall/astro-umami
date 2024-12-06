@@ -1,5 +1,5 @@
-import { z } from "astro/zod";
 import { defineIntegration } from "astro-integration-kit";
+import { z } from "astro/zod";
 
 import { getInjectableWebAnalyticsContent } from "./lib/umami-analytics.js";
 
