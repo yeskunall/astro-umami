@@ -1,0 +1,2 @@
+*.json linguist-detectable=true
+.vscode/settings.json linguist-language=jsonc
