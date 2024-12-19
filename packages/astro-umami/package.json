@@ -46,7 +46,7 @@
     "astro": "^4.16.7 || ^5.0.0"
   },
   "dependencies": {
-    "astro-integration-kit": "0.17.0"
+    "astro-integration-kit": "0.18.0"
   },
   "devDependencies": {
     "eslint": "9.17.0",
