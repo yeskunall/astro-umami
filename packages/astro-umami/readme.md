@@ -49,4 +49,4 @@ export default defineConfig({
 
 #### ⚖️ License
 
-[MIT](https://github.com/yeskunall/astro-umami/blob/main/license) © [Kunall Banerjee](https://kimchiii.space/)
+[MIT](https://github.com/yeskunall/astro-umami/blob/main/license) © [Kunall Banerjee](https://kunall.dev/)
