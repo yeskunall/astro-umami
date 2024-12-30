@@ -1,2 +1,3 @@
+* text=auto eol=lf
 *.json linguist-detectable=true
 .vscode/settings.json linguist-language=jsonc
