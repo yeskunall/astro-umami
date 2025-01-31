@@ -39,8 +39,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup --format esm,cjs --clean --dts",
-    "dev": "tsup --format esm,cjs --watch"
+    "build": "tsup src/index.ts --no-config --external astro-integration-kit --clean --dts --format esm --minify --target node18",
+    "dev": "tsup src/index.ts --no-config --format esm --clean --watch --target node18"
   },
   "peerDependencies": {
     "astro": "^4.16.7 || ^5.0.0"
