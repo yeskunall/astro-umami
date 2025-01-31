@@ -4,29 +4,31 @@
   "version": "0.0.3",
   "description": "Add Umami Analytics to your Astro website",
   "author": {
-    "email": "hey@kunall.dev",
     "name": "Kunall Banerjee",
+    "email": "hey@kunall.dev",
     "url": "https://kunall.dev"
   },
   "license": "MIT",
   "homepage": "https://github.com/yeskunall/astro-umami#readme",
+  "repository": "yeskunall/astro-umami",
+  "bugs": {
+    "url": "https://github.com/yeskunall/astro-umami#issues"
+  },
   "keywords": [
     "alternative",
     "analytics",
-    "astro-integration",
-    "astro-component",
     "astro",
+    "astro-integration",
     "ccpa",
     "gdpr",
+    "pecr",
     "privacy",
     "replacement",
     "umami",
     "umami.is",
-    "umami-analytics"
+    "umami-analytics",
+    "withastro"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -49,7 +51,11 @@
     "astro-integration-kit": "0.18.0"
   },
   "devDependencies": {
-    "eslint": "9.17.0",
-    "tsup": "8.3.5"
+    "eslint": "9.19.0",
+    "tsup": "8.3.6",
+    "typescript": "5.7.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
