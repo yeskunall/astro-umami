@@ -14,9 +14,9 @@ authors:
   orcid: "https://orcid.org/0009-0003-5235-2382"
 
 contact:
-  - email: "hey@kunall.dev"
-    family-names: Banerjee
-    given-names: Kunall
+- email: "hey@kunall.dev"
+  family-names: Banerjee
+  given-names: Kunall
 
 commit: 294b2c16708a70195b2ce8c7968da6436bb5a397
 version: 0.0.3
@@ -28,14 +28,13 @@ repository-artifact: "https://github.com/yeskunall/astro-umami/archive/refs/tags
 url: "https://github.com/yeskunall/astro-umami#readme"
 
 keywords:
-    - "analytics"
-    - "astro"
-    - "astro-integration"
-    - "ccpa"
-    - "gdpr",
-    - "pecr"
-    - "privacy"
-    - "umami"
-    - "umami.is"
-    - "umami-analytics"
-
+  - "analytics"
+  - "astro"
+  - "astro-integration"
+  - "ccpa"
+  - "gdpr",
+  - "pecr"
+  - "privacy"
+  - "umami"
+  - "umami.is"
+  - "umami-analytics"
