@@ -22,7 +22,7 @@
 Run the following from your project directory and follow the prompts:
 
 ```sh
-pnpm astro add @yeskunall/astro-umami@0.0.3
+pnpm astro add @yeskunall/astro-umami@0.0.4
 ```
 
 This will install and make the appropriate changes to your Astro config automatically.
@@ -32,7 +32,7 @@ This will install and make the appropriate changes to your Astro config automati
 1. Install the required dependencies
 
 ```sh
-pnpm add @yeskunall/astro-umami@0.0.3
+pnpm add @yeskunall/astro-umami@0.0.4
 ```
 
 2. Add the integration to your Astro config:
