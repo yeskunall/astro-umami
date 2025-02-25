@@ -12,7 +12,7 @@
     "lint": "eslint --max-warnings 0 ."
   },
   "devDependencies": {
-    "@antfu/eslint-config": "4.2.0",
+    "@antfu/eslint-config": "4.3.0",
     "eslint": "9.20.1",
     "tsup": "8.3.6"
   }
