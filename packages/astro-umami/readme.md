@@ -2,9 +2,9 @@
 
 > An [Astro integration](https://docs.astro.build/en/guides/integrations-guide/) to add [Umami Analytics](https://umami.is/) to your website.
 
-[![main](https://github.com/yeskunall/astro-umami/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/yeskunall/astro-umami/actions/workflows/ci.yml)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/yeskunall/astro-umami/blob/main/license)
 [![npm version](https://badge.fury.io/js/@yeskunall%2Fastro-umami.svg)](https://badge.fury.io/js/@yeskunall%2Fastro-umami)
+![monthly downloads](https://img.shields.io/npm/dm/@yeskunall/astro-umami.svg?logo=npm)
 
 ## 🪶 Highlights
 
