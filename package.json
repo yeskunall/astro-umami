@@ -9,7 +9,8 @@
   "scripts": {
     "build": "pnpm --filter=\"./packages/*\" --recursive run build",
     "dev": "pnpm --filter=\"./packages/*\" --recursive run dev",
-    "lint": "eslint --max-warnings 0 ."
+    "lint": "eslint --max-warnings 0 .",
+    "test": "pnpm --filter=\"playground\" --recursive run test"
   },
   "devDependencies": {
     "@antfu/eslint-config": "4.3.0",

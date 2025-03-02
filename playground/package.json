@@ -7,7 +7,8 @@
     "build": "astro check && astro build",
     "dev": "astro dev",
     "preview": "astro preview",
-    "start": "astro dev"
+    "start": "astro dev",
+    "test": "playwright test"
   },
   "dependencies": {
     "@yeskunall/astro-umami": "workspace:*",
@@ -16,6 +17,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.4",
+    "@playwright/test": "1.50.1",
+    "playwright": "1.50.1",
     "typescript": "5.8.2"
   }
 }
