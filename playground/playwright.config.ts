@@ -7,11 +7,11 @@ export default defineConfig({
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      use: { ...devices["Desktop Chrome"], channel: "chromium" },
     },
   ],
-  retries: process.env.CI ? 2 : 0,
   reporter: "html",
+  retries: process.env.CI ? 2 : 0,
   use: {
     baseURL: "http://localhost:4321",
     trace: "on-first-retry",

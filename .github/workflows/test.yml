@@ -25,7 +25,11 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Install Playwright browsers
-        run: pnpm dlx playwright install --with-deps
+        run: pnpm dlx playwright install --with-deps chromium --only-shell
+
+      - name: Build library
+        working-directory: packages/astro-umami
+        run: pnpm build
 
       - name: Run Playwright tests
         run: pnpm dlx playwright test
