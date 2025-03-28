@@ -24,15 +24,16 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install Playwright browsers
-        run: pnpm dlx playwright install --with-deps chromium --only-shell
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium --no-shell
 
       - name: Build library
         working-directory: packages/astro-umami
         run: pnpm build
 
       - name: Run Playwright tests
-        run: pnpm dlx playwright test
+        run: pnpm test
+
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
