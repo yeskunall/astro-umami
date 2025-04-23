@@ -11,6 +11,7 @@ export default defineConfig({
       id: "94db1cb1-74f4-4a40-ad6c-962362670409",
       domains: ["example.com", "com.example"],
       hostUrl: "https://analytics.eu.umami.is",
+      withPartytown: true,
     }),
     hmrIntegration({
       directory: createResolver(import.meta.url).resolve(

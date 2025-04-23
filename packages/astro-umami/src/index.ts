@@ -40,12 +40,21 @@ interface UmamiOptions {
   trackerScriptName?: string;
 }
 
+interface Options extends UmamiOptions {
+  /**
+   * Serve the tracking script using [Partytown](https://partytown.qwik.dev/).
+   *
+   * @see [https://docs.astro.build/en/guides/integrations-guide/partytown/](https://docs.astro.build/en/guides/integrations-guide/partytown/)
+   */
+  withPartytown?: boolean;
+}
+
 async function getInjectableWebAnalyticsContent({
   mode,
   options,
 }: {
   mode: "development" | "production";
-  options: OptionalExceptFor<UmamiOptions, "id">;
+  options: OptionalExceptFor<Options, "id">;
 }): Promise<string> {
   const {
     autotrack = true,
@@ -54,6 +63,7 @@ async function getInjectableWebAnalyticsContent({
     hostUrl = "https://cloud.umami.is",
     id,
     trackerScriptName = "script.js",
+    withPartytown = false,
   } = options;
 
   const hostname = new URL(endpointUrl).hostname;
@@ -65,6 +75,7 @@ async function getInjectableWebAnalyticsContent({
     hostUrl !== "https://cloud.umami.is"
       ? `script.setAttribute("data-host-url", "${hostUrl}")`
       : "",
+    withPartytown ? `script.setAttribute("type", "text/partytown")` : "",
   ]
     .filter(Boolean)
     .join(";\n");
@@ -110,7 +121,7 @@ async function getInjectableWebAnalyticsContent({
   `;
 }
 
-export default function umamiIntegration(options: OptionalExceptFor<UmamiOptions, "id">): AstroIntegration {
+export default function umamiIntegration(options: OptionalExceptFor<Options, "id">): AstroIntegration {
   return {
     name: "@yeskunall/astro-umami",
     hooks: {

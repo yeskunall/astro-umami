@@ -75,3 +75,21 @@ test("`hostUrl` matches", async ({ page }) => {
 
   expect(hostUrl).toBe("https://analytics.eu.umami.is");
 });
+
+test("`withPartytown` enabled", async ({ page }) => {
+  await page.goto("/");
+
+  const hostUrl = await page.evaluate(
+    async () => {
+      const hostUrl = document
+        .querySelector<HTMLScriptElement>(("script[data-website-id]"))
+        ?.attributes
+        .getNamedItem("type")
+        ?.textContent;
+
+      return hostUrl;
+    },
+  );
+
+  expect(hostUrl).toBe("text/partytown");
+});
