@@ -2,6 +2,7 @@
 
 > An [Astro integration](https://docs.astro.build/en/guides/integrations-guide/) to add [Umami Analytics](https://umami.is/) to your website.
 
+[![E2E tests](https://github.com/yeskunall/astro-umami/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/yeskunall/astro-umami/actions/workflows/test.yml)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/yeskunall/astro-umami/blob/main/license)
 [![npm version](https://badge.fury.io/js/@yeskunall%2Fastro-umami.svg)](https://badge.fury.io/js/@yeskunall%2Fastro-umami)
 ![monthly downloads](https://img.shields.io/npm/dm/@yeskunall/astro-umami.svg?logo=npm)
@@ -10,10 +11,11 @@
 
 - Automatically detects if you’re using [View Transitions](https://docs.astro.build/en/guides/view-transitions/) and adds a [`data-astro-rerun`](https://docs.astro.build/en/guides/view-transitions/#data-astro-rerun) attribute
 - Disables events and pageviews during development
-- Prevents Google Tag Manager from stripping custom `data-*` attributes
 - Supports all [configuration](https://umami.is/docs/tracker-configuration) options, unlike [`astro-analytics`](https://github.com/Destiner/astro-analytics)
-- (_Optionally_) Serve the tracking script using [Partytown](https://partytown.builder.io/) (_**planned in an upcoming release**_)
+- Provides inline documentation for all configuration options (thanks to [TypeScript](https://github.com/yeskunall/astro-umami/blob/main/packages/astro-umami/src/index.ts#L7))
+- (_Optionally_) Serve the tracking script using [Partytown](https://partytown.qwik.dev/)
 - **Actively maintained**
+- **Zero dependencies**
 
 ## 🍛 Usage
 
@@ -48,6 +50,10 @@ export default defineConfig({
 ```
 
 ###### 📖 For all configurable options, see the [interface](https://github.com/yeskunall/astro-umami/blob/main/packages/astro-umami/src/index.ts#L7).
+
+### Related
+
+[`lume-umami`](https://github.com/yeskunall/lume-umami) - [Lume plugin](https://lume.land/docs/configuration/install-plugins/) to add [Umami Analytics](https://umami.is/) to your website
 
 ---
 
