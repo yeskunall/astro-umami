@@ -13,7 +13,7 @@
 - Disables events and pageviews during development
 - Supports all [configuration](https://umami.is/docs/tracker-configuration) options, unlike [`astro-analytics`](https://github.com/Destiner/astro-analytics)
 - Provides inline documentation for all configuration options (thanks to [TypeScript](https://github.com/yeskunall/astro-umami/blob/main/packages/astro-umami/src/index.ts#L7))
-- (_Optionally_) Serve the tracking script using [Partytown](https://partytown.qwik.dev/)
+- (_Optionally_) Serve the tracking script using [Partytown](https://partytown.qwik.dev/) (v0.0.5 onwards)
 - **Actively maintained**
 - **Zero dependencies**
 
