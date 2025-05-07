@@ -37,11 +37,11 @@ importers:
         specifier: workspace:*
         version: link:../packages/astro-umami
       astro:
-        specifier: 5.7.8
-        version: 5.7.8(@types/node@20.16.10)(jiti@2.4.1)(rollup@4.40.1)(typescript@5.8.3)(yaml@2.7.1)
+        specifier: 5.7.11
+        version: 5.7.11(@types/node@20.16.10)(jiti@2.4.1)(rollup@4.40.1)(typescript@5.8.3)(yaml@2.7.1)
       astro-integration-kit:
         specifier: 0.18.0
-        version: 0.18.0(astro@5.7.8(@types/node@20.16.10)(jiti@2.4.1)(rollup@4.40.1)(typescript@5.8.3)(yaml@2.7.1))
+        version: 0.18.0(astro@5.7.11(@types/node@20.16.10)(jiti@2.4.1)(rollup@4.40.1)(typescript@5.8.3)(yaml@2.7.1))
     devDependencies:
       '@astrojs/check':
         specifier: 0.9.4
@@ -1547,8 +1547,8 @@ packages:
     engines: {node: ^18.17.1 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
-  astro@5.7.8:
-    resolution: {integrity: sha512-82ku6+wOGXP5c5+YOkBzEGJ/k8/GVSeN0xD/TNUrPf5nvWpGGpngxtUAwuruKF6wIxRC1/SwlUVCs/4QT98iZQ==}
+  astro@5.7.11:
+    resolution: {integrity: sha512-9qRVwp8pue3isddLBnTexJsmKFpmms9Fo7Ss+3yrC0aINvbHKpD7q6qf52BtfQEk2xJgyx3SQy3dUsuD90sEqQ==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -3725,8 +3725,8 @@ packages:
   unified@11.0.5:
     resolution: {integrity: sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA==}
 
-  unifont@0.4.1:
-    resolution: {integrity: sha512-zKSY9qO8svWYns+FGKjyVdLvpGPwqmsCjeJLN1xndMiqxHWBAhoWDMYMG960MxeV48clBmG+fDP59dHY1VoZvg==}
+  unifont@0.5.0:
+    resolution: {integrity: sha512-4DueXMP5Hy4n607sh+vJ+rajoLu778aU3GzqeTCqsD/EaUcvqZT9wPC8kgK6Vjh22ZskrxyRCR71FwNOaYn6jA==}
 
   unist-util-find-after@5.0.0:
     resolution: {integrity: sha512-amQa0Ep2m6hE2g72AugUItjbuM8X8cGQnFoHk0pGfrFeT9GZhzN5SW8nRsiGKK7Aif4CrACPENkA6P/Lw6fHGQ==}
@@ -3915,46 +3915,6 @@ packages:
 
   vite@6.0.11:
     resolution: {integrity: sha512-4VL9mQPKoHy4+FE0NnRE/kbY51TOfaknxAjt3fJbGJxhIpBZiqVzlZDEesWWsuREXHwNdAoOFZ9MkPEVXczHwg==}
-    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': ^18.0.0 || ^20.0.0 || >=22.0.0
-      jiti: '>=1.21.0'
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      sass-embedded: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.16.0
-      tsx: ^4.8.1
-      yaml: ^2.4.2
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      jiti:
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      sass-embedded:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-      tsx:
-        optional: true
-      yaml:
-        optional: true
-
-  vite@6.3.3:
-    resolution: {integrity: sha512-5nXH+QsELbFKhsEfWLkHrvgRpTdGJzqOZ+utSdmPTvwHmvU6ITTm3xx+mRusihkcI8GeC7lCDyn3kDtiki9scw==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -4327,9 +4287,6 @@ packages:
 
   zod@3.24.1:
     resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
-
-  zod@3.24.3:
-    resolution: {integrity: sha512-HhY1oqzWCQWuUqvBFnsyrtZRhyPeR7SUGv+C4+MsisMuVfSPx8HpwWqH8tRahSlt6M3PiFAcoeFhZAqIXTxoSg==}
 
   zod@3.24.4:
     resolution: {integrity: sha512-OdqJE9UDRPwWsrHjLN2F8bPxvwJBK22EHLWtanu0LSYr5YqzsaaW3RMgmjwr8Rypg5k+meEJdSPXJZXE/yqOMg==}
@@ -5662,9 +5619,9 @@ snapshots:
     dependencies:
       tslib: 2.7.0
 
-  astro-integration-kit@0.18.0(astro@5.7.8(@types/node@20.16.10)(jiti@2.4.1)(rollup@4.40.1)(typescript@5.8.3)(yaml@2.7.1)):
+  astro-integration-kit@0.18.0(astro@5.7.11(@types/node@20.16.10)(jiti@2.4.1)(rollup@4.40.1)(typescript@5.8.3)(yaml@2.7.1)):
     dependencies:
-      astro: 5.7.8(@types/node@20.16.10)(jiti@2.4.1)(rollup@4.40.1)(typescript@5.8.3)(yaml@2.7.1)
+      astro: 5.7.11(@types/node@20.16.10)(jiti@2.4.1)(rollup@4.40.1)(typescript@5.8.3)(yaml@2.7.1)
       pathe: 1.1.2
       recast: 0.23.9
 
@@ -5765,7 +5722,7 @@ snapshots:
       - uploadthing
       - yaml
 
-  astro@5.7.8(@types/node@20.16.10)(jiti@2.4.1)(rollup@4.40.1)(typescript@5.8.3)(yaml@2.7.1):
+  astro@5.7.11(@types/node@20.16.10)(jiti@2.4.1)(rollup@4.40.1)(typescript@5.8.3)(yaml@2.7.1):
     dependencies:
       '@astrojs/compiler': 2.11.0
       '@astrojs/internal-helpers': 0.6.1
@@ -5814,18 +5771,18 @@ snapshots:
       tinyglobby: 0.2.13
       tsconfck: 3.1.5(typescript@5.8.3)
       ultrahtml: 1.6.0
-      unifont: 0.4.1
+      unifont: 0.5.0
       unist-util-visit: 5.0.0
       unstorage: 1.16.0
       vfile: 6.0.3
-      vite: 6.3.3(@types/node@20.16.10)(jiti@2.4.1)(yaml@2.7.1)
-      vitefu: 1.0.6(vite@6.3.3(@types/node@20.16.10)(jiti@2.4.1)(yaml@2.7.1))
+      vite: 6.3.5(@types/node@20.16.10)(jiti@2.4.1)(yaml@2.7.1)
+      vitefu: 1.0.6(vite@6.3.5(@types/node@20.16.10)(jiti@2.4.1)(yaml@2.7.1))
       xxhash-wasm: 1.1.0
       yargs-parser: 21.1.1
       yocto-spinner: 0.2.2
-      zod: 3.24.3
-      zod-to-json-schema: 3.24.5(zod@3.24.3)
-      zod-to-ts: 1.2.0(typescript@5.8.3)(zod@3.24.3)
+      zod: 3.24.4
+      zod-to-json-schema: 3.24.5(zod@3.24.4)
+      zod-to-ts: 1.2.0(typescript@5.8.3)(zod@3.24.4)
     optionalDependencies:
       sharp: 0.33.5
     transitivePeerDependencies:
@@ -8499,7 +8456,7 @@ snapshots:
       trough: 2.2.0
       vfile: 6.0.3
 
-  unifont@0.4.1:
+  unifont@0.5.0:
     dependencies:
       css-tree: 3.1.0
       ohash: 2.0.11
@@ -8655,20 +8612,6 @@ snapshots:
       jiti: 2.4.1
       yaml: 2.7.1
 
-  vite@6.3.3(@types/node@20.16.10)(jiti@2.4.1)(yaml@2.7.1):
-    dependencies:
-      esbuild: 0.25.3
-      fdir: 6.4.4(picomatch@4.0.2)
-      picomatch: 4.0.2
-      postcss: 8.5.3
-      rollup: 4.40.1
-      tinyglobby: 0.2.13
-    optionalDependencies:
-      '@types/node': 20.16.10
-      fsevents: 2.3.3
-      jiti: 2.4.1
-      yaml: 2.7.1
-
   vite@6.3.5(@types/node@20.16.10)(jiti@2.4.1)(yaml@2.7.1):
     dependencies:
       esbuild: 0.25.3
@@ -8687,9 +8630,9 @@ snapshots:
     optionalDependencies:
       vite: 6.0.11(@types/node@20.16.10)(jiti@2.4.1)(yaml@2.7.1)
 
-  vitefu@1.0.6(vite@6.3.3(@types/node@20.16.10)(jiti@2.4.1)(yaml@2.7.1)):
+  vitefu@1.0.6(vite@6.3.5(@types/node@20.16.10)(jiti@2.4.1)(yaml@2.7.1)):
     optionalDependencies:
-      vite: 6.3.3(@types/node@20.16.10)(jiti@2.4.1)(yaml@2.7.1)
+      vite: 6.3.5(@types/node@20.16.10)(jiti@2.4.1)(yaml@2.7.1)
 
   vitest@3.1.1(@types/debug@4.1.12)(@types/node@20.16.10)(jiti@2.4.1)(yaml@2.7.1):
     dependencies:
@@ -8974,10 +8917,6 @@ snapshots:
     dependencies:
       zod: 3.24.1
 
-  zod-to-json-schema@3.24.5(zod@3.24.3):
-    dependencies:
-      zod: 3.24.3
-
   zod-to-json-schema@3.24.5(zod@3.24.4):
     dependencies:
       zod: 3.24.4
@@ -8987,14 +8926,12 @@ snapshots:
       typescript: 5.8.3
       zod: 3.24.1
 
-  zod-to-ts@1.2.0(typescript@5.8.3)(zod@3.24.3):
+  zod-to-ts@1.2.0(typescript@5.8.3)(zod@3.24.4):
     dependencies:
       typescript: 5.8.3
-      zod: 3.24.3
+      zod: 3.24.4
 
   zod@3.24.1: {}
-
-  zod@3.24.3: {}
 
   zod@3.24.4: {}
 
