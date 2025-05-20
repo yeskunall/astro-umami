@@ -12,8 +12,6 @@ interface UmamiOptions {
   autotrack?: boolean;
   /**
    * Specify a [function](https://umami.is/docs/tracker-configuration#data-before-send) that will be called before data is sent.
-   *
-   * @example beforeSendHandler
    */
   beforeSendHandler?: string;
   /**
