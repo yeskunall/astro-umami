@@ -7,7 +7,8 @@ type OptionalExceptFor<T, K extends keyof T> = {
 interface UmamiOptions {
   /**
    * Umami tracks all events and pageviews for you automatically. Override this behavior if you plan on using [tracker functions](https://umami.is/docs/tracker-functions).
-   * @default true
+   *
+   @default true
    */
   autotrack?: boolean;
   /**
@@ -27,6 +28,7 @@ interface UmamiOptions {
   /**
    *
    * The endpoint where your Umami instance is located.
+   *
    * @default https://cloud.umami.is
    * @example https://umami-on.fly.dev
    */
@@ -104,43 +106,36 @@ async function getInjectableWebAnalyticsContent({
     .filter(Boolean)
     .join(";\n");
 
+  const commonScript = `
+    var script = document.createElement("script");
+    var viewTransitionsEnabled = document.querySelector("meta[name='astro-view-transitions-enabled']")?.content;
+
+    script.setAttribute("src", "https://${hostname}/${trackerScriptName}");
+    script.setAttribute("defer", true);
+    script.setAttribute("data-website-id", "${id}");
+    ${configAsString};
+
+    if (!!viewTransitionsEnabled) {
+      script.setAttribute("data-astro-rerun", true);
+    }
+
+    var head = document.querySelector("head");
+    head.appendChild(script);
+  `;
+
   if (mode === "development") {
     return `
-      localStorage.setItem("umami.disabled", "1");
+      (function () {
+        localStorage.setItem("umami.disabled", "1");
 
-      var script = document.createElement("script");
-      var viewTransitionsEnabled = document.querySelector("meta[name='astro-view-transitions-enabled']")?.content;
-
-      script.setAttribute("src", "https://${hostname}/${trackerScriptName}");
-      script.setAttribute("defer", true);
-      script.setAttribute("data-website-id", "${id}");
-      ${configAsString};
-
-      if (!!viewTransitionsEnabled) {
-        script.setAttribute("data-astro-rerun", true);
-      }
-
-      var head = document.querySelector("head");
-      head.appendChild(script);
+        ${commonScript}
+      })()
     `;
   }
 
   return `
     (function () {
-      var script = document.createElement("script");
-      var viewTransitionsEnabled = document.querySelector("meta[name='astro-view-transitions-enabled']")?.content;
-
-      script.setAttribute("src", "https://${hostname}/${trackerScriptName}");
-      script.setAttribute("defer", true);
-      script.setAttribute("data-website-id", "${id}");
-      ${configAsString};
-
-      if (!!viewTransitionsEnabled) {
-        script.setAttribute("data-astro-rerun", true);
-      }
-
-      var head = document.querySelector("head");
-      head.appendChild(script);
+      ${commonScript}
     })()
   `;
 }
