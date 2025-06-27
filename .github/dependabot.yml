@@ -7,3 +7,9 @@ updates:
     open-pull-requests-limit: 5
     labels:
       - dependencies
+    groups:
+      # Group Playwright dependencies together
+      playwright:
+        patterns:
+          - "@playwright/test"
+          - "playwright"
