@@ -12,13 +12,13 @@
   },
   "dependencies": {
     "@yeskunall/astro-umami": "workspace:*",
-    "astro": "5.10.1",
+    "astro": "5.11.0",
     "astro-integration-kit": "0.18.0"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.4",
-    "@playwright/test": "1.53.2",
-    "playwright": "1.53.2",
+    "@playwright/test": "1.54.0",
+    "playwright": "1.54.0",
     "typescript": "5.8.3"
   }
 }
