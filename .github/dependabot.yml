@@ -8,6 +8,11 @@ updates:
     labels:
       - dependencies
     groups:
+      # Group ESLint dependencies together
+      eslint:
+        patterns:
+          - "@eslint/js"
+          - "eslint"
       # Group Playwright dependencies together
       playwright:
         patterns:
