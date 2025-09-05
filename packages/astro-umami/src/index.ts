@@ -50,6 +50,10 @@ interface UmamiOptions {
    */
   id: string;
   /**
+   * Collect events under a specific tag. These events can be filtered in the dashboard by the specific tag.
+   */
+  tag?: string;
+  /**
    * Assign a custom name to the tracker script.
    *
    * @default script.js
@@ -84,6 +88,7 @@ async function getInjectableWebAnalyticsContent({
     excludeSearch = false,
     hostUrl = "https://cloud.umami.is",
     id,
+    tag,
     trackerScriptName = "script.js",
     withPartytown = false,
   } = options;
@@ -101,6 +106,7 @@ async function getInjectableWebAnalyticsContent({
     hostUrl !== "https://cloud.umami.is"
       ? `script.setAttribute("data-host-url", "${hostUrl}")`
       : "",
+    tag ? `script.setAttribute("data-tag", "${tag}")` : "",
     withPartytown ? `script.setAttribute("type", "text/partytown")` : "",
   ]
     .filter(Boolean)

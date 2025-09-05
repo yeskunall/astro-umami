@@ -166,6 +166,24 @@ test("`hostUrl` matches", async ({ page }) => {
   expect(hostUrl).toBe("https://analytics.eu.umami.is");
 });
 
+test("`tag` matches", async ({ page }) => {
+  await page.goto("/");
+
+  const src = await page.evaluate(
+    async () => {
+      const beforeSendHandler = document
+        .querySelector<HTMLScriptElement>(("script[data-website-id]"))
+        ?.attributes
+        .getNamedItem("data-tag")
+        ?.textContent;
+
+      return beforeSendHandler;
+    },
+  );
+
+  expect(src).toBe("test-tag");
+});
+
 test("`withPartytown` enabled", async ({ page }) => {
   await page.goto("/");
 
