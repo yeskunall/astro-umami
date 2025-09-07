@@ -1,3 +1,4 @@
+import { defineConfig } from "eslint/config";
 import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import tseslint from "typescript-eslint";
@@ -27,18 +28,14 @@ const stylisticRulesAsWarnings: Record<string, Linter.RuleEntry>
     {} as Record<string, Linter.RuleEntry>,
   );
 
-export default tseslint.config(
-  { ignores: ["dist"] },
+export default defineConfig(
+  { ignores: ["**/dist/**"] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: "latest",
     },
-  },
-  {
-    files: ["**/*.{ts,tsx}"],
-    ignores: ["dist"],
     plugins: {
       "@stylistic": stylistic,
     },
