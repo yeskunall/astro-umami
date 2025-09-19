@@ -50,13 +50,3 @@ export default defineConfig({
 ```
 
 ###### 📖 For all configurable options, see the [interface](https://github.com/yeskunall/astro-umami/blob/main/packages/astro-umami/src/index.ts#L7).
-
-### Related
-
-[`lume-umami`](https://github.com/yeskunall/lume-umami) - [Lume plugin](https://lume.land/docs/configuration/install-plugins/) to add [Umami Analytics](https://umami.is/) to your website
-
----
-
-#### ⚖️ License
-
-[MIT](https://github.com/yeskunall/astro-umami/blob/main/license) © [Kunall Banerjee](https://kunall.dev/)
