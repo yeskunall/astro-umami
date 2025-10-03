@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   test:
-    name: Node.js {{ matrix.node-version }}
+    name: Node.js ${{ matrix.node-version }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
