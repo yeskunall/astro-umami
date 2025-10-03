@@ -1,7 +1,11 @@
 name: E2E tests
 on:
+  pull_request:
+    branches:
+      - main
   push:
-    branches: [main]
+    branches:
+      - main
 
 permissions:
   actions: read
@@ -9,38 +13,30 @@ permissions:
 
 jobs:
   test:
-    timeout-minutes: 30
+    name: Node.js {{ matrix.node-version }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version:
+          - 18
+          - 20
+          - 22
+          - 24
+    timeout-minutes: 30
     defaults:
       run:
         working-directory: playground
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda
+      - uses: actions/setup-node@v5
         with:
-          node-version: lts/*
+          node-version: ${{ matrix.node-version }}
           cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Install Chromium
-        run: pnpm exec playwright install --with-deps chromium --no-shell
-
-      - name: Build library
+      - run: |
+          pnpm install --frozen-lockfile
+          pnpm exec playwright install --with-deps chromium --no-shell
+      - run: pnpm build
         working-directory: packages/astro-umami
-        run: pnpm build
-
-      - name: Run Playwright tests
-        run: pnpm test
-
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+      - run: pnpm test
