@@ -19,6 +19,6 @@
     "@astrojs/check": "0.9.4",
     "@playwright/test": "1.55.1",
     "playwright": "1.55.1",
-    "typescript": "5.9.2"
+    "typescript": "5.9.3"
   }
 }
