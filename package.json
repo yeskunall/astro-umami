@@ -18,6 +18,6 @@
     "@stylistic/eslint-plugin": "5.4.0",
     "eslint": "9.37.0",
     "jiti": "2.6.1",
-    "typescript-eslint": "8.46.0"
+    "typescript-eslint": "8.46.1"
   }
 }
