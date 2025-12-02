@@ -16,7 +16,7 @@
     "astro-integration-kit": "0.19.1"
   },
   "devDependencies": {
-    "@astrojs/check": "0.9.5",
+    "@astrojs/check": "0.9.6",
     "@playwright/test": "1.57.0",
     "playwright": "1.57.0",
     "typescript": "5.9.3"
