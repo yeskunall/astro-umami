@@ -32,9 +32,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Install Playwright browsers
+      - name: Install Playwright browsers (playground)
         run: pnpm exec playwright install --with-deps chromium --no-shell
         working-directory: playground
+      - name: Install Playwright browsers (playground-relative)
+        run: pnpm exec playwright install --with-deps chromium --no-shell
+        working-directory: playground-relative
       - name: Build package
         run: pnpm build
         working-directory: packages/astro-umami
