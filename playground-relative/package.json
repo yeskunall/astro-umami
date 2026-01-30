@@ -1,0 +1,24 @@
+{
+  "name": "playground-relative",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "astro check && astro build",
+    "dev": "astro dev --port 4322",
+    "preview": "astro preview",
+    "start": "astro dev --port 4322",
+    "test": "playwright test"
+  },
+  "dependencies": {
+    "@yeskunall/astro-umami": "workspace:*",
+    "astro": "5.16.6",
+    "astro-integration-kit": "0.19.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.6",
+    "@playwright/test": "1.57.0",
+    "playwright": "1.57.0",
+    "typescript": "5.9.3"
+  }
+}
