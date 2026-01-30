@@ -62,6 +62,31 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
+  playground-relative:
+    dependencies:
+      '@yeskunall/astro-umami':
+        specifier: workspace:*
+        version: link:../packages/astro-umami
+      astro:
+        specifier: 5.16.6
+        version: 5.16.6(@types/node@20.16.10)(jiti@2.6.1)(rollup@4.40.1)(typescript@5.9.3)(yaml@2.7.1)
+      astro-integration-kit:
+        specifier: 0.19.1
+        version: 0.19.1(astro@5.16.6(@types/node@20.16.10)(jiti@2.6.1)(rollup@4.40.1)(typescript@5.9.3)(yaml@2.7.1))
+    devDependencies:
+      '@astrojs/check':
+        specifier: 0.9.6
+        version: 0.9.6(prettier@3.7.4)(typescript@5.9.3)
+      '@playwright/test':
+        specifier: 1.57.0
+        version: 1.57.0
+      playwright:
+        specifier: 1.57.0
+        version: 1.57.0
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
 packages:
 
   '@astrojs/check@0.9.6':
@@ -72,9 +97,6 @@ packages:
 
   '@astrojs/compiler@2.10.3':
     resolution: {integrity: sha512-bL/O7YBxsFt55YHU021oL+xz+B/9HvGNId3F9xURN16aeqDK9juHGktdkCSXz+U4nqFACq6ZFvWomOzhV+zfPw==}
-
-  '@astrojs/compiler@2.12.2':
-    resolution: {integrity: sha512-w2zfvhjNCkNMmMMOn5b0J8+OmUaBL1o40ipMvqcG6NRpdC+lKxmTi48DT8Xw0SzJ3AfmeFLB45zXZXtmbsjcgw==}
 
   '@astrojs/compiler@2.13.0':
     resolution: {integrity: sha512-mqVORhUJViA28fwHYaWmsXSzLO9osbdZ5ImUfxBarqsYdMlPbqAqGJCxsNzvppp1BEzc1mJNjOVvQqeDN8Vspw==}
@@ -3363,8 +3385,6 @@ snapshots:
 
   '@astrojs/compiler@2.10.3': {}
 
-  '@astrojs/compiler@2.12.2': {}
-
   '@astrojs/compiler@2.13.0': {}
 
   '@astrojs/internal-helpers@0.5.0': {}
@@ -3373,7 +3393,7 @@ snapshots:
 
   '@astrojs/language-server@2.16.2(prettier@3.7.4)(typescript@5.9.3)':
     dependencies:
-      '@astrojs/compiler': 2.12.2
+      '@astrojs/compiler': 2.13.0
       '@astrojs/yaml2ts': 0.2.2
       '@jridgewell/sourcemap-codec': 1.5.5
       '@volar/kit': 2.4.27(typescript@5.9.3)
@@ -4291,7 +4311,7 @@ snapshots:
       '@typescript-eslint/types': 8.50.0
       '@typescript-eslint/typescript-estree': 8.50.0(typescript@5.9.3)
       '@typescript-eslint/utils': 8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
-      debug: 4.4.1
+      debug: 4.4.3
       eslint: 9.39.2(jiti@2.6.1)
       ts-api-utils: 2.1.0(typescript@5.9.3)
       typescript: 5.9.3
@@ -6483,7 +6503,7 @@ snapshots:
 
   typescript-auto-import-cache@0.3.6:
     dependencies:
-      semver: 7.7.2
+      semver: 7.7.3
 
   typescript-eslint@8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3):
     dependencies:
@@ -6539,7 +6559,7 @@ snapshots:
   unifont@0.6.0:
     dependencies:
       css-tree: 3.1.0
-      ofetch: 1.4.1
+      ofetch: 1.5.1
       ohash: 2.0.11
 
   unist-util-find-after@5.0.0:
@@ -6704,7 +6724,7 @@ snapshots:
   volar-service-typescript@0.0.67(@volar/language-service@2.4.27):
     dependencies:
       path-browserify: 1.0.1
-      semver: 7.7.2
+      semver: 7.7.3
       typescript-auto-import-cache: 0.3.6
       vscode-languageserver-textdocument: 1.0.12
       vscode-nls: 5.2.0

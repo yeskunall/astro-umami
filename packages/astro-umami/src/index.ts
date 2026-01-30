@@ -22,27 +22,30 @@ interface UmamiOptions {
    */
   domains?: string[];
   /**
-   * Respect a visitor’s [Do Not Track](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/doNotTrack) browser setting.
+   * Respect a visitor's [Do Not Track](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/doNotTrack) browser setting.
    */
   doNotTrack?: boolean;
   /**
    *
-   * The endpoint where your Umami instance is located.
+   * The endpoint where your Umami instance is located. Can be a full URL or a relative path.
    *
    * @default https://cloud.umami.is
    * @example https://umami-on.fly.dev
+   * @example /_umami (for proxied setups where Umami is served from a subdirectory)
    */
   endpointUrl?: string;
   /**
-   * Set this if you don’t want to collect the hash value from the URL.
+   * Set this if you don't want to collect the hash value from the URL.
    */
   excludeHash?: boolean;
   /**
-   * Set this if you don’t want to collect search parameters from the URL.
+   * Set this if you don't want to collect search parameters from the URL.
    */
   excludeSearch?: boolean;
   /**
-   * Override the location where your analytics data is sent.
+   * Override the location where your analytics data is sent. Can be a full URL or a relative path.
+   * When using a relative path for endpointUrl, this is typically not needed as Umami
+   * defaults to sending data to the script's origin.
    */
   hostUrl?: string;
   /**
@@ -71,6 +74,29 @@ interface Options extends UmamiOptions {
   withPartytown?: boolean;
 }
 
+/**
+ * Check if a URL string is a relative path (starts with /)
+ */
+function isRelativePath(url: string): boolean {
+  return url.startsWith("/");
+}
+
+/**
+ * Build the script src URL based on whether the endpoint is relative or absolute
+ */
+function buildScriptSrc(endpointUrl: string, trackerScriptName: string): string {
+  if (isRelativePath(endpointUrl)) {
+    // For relative paths, use them directly
+    // Ensure no double slashes: normalize the path
+    const basePath = endpointUrl.endsWith("/") ? endpointUrl.slice(0, -1) : endpointUrl;
+    return `${basePath}/${trackerScriptName}`;
+  }
+
+  // For absolute URLs, extract the hostname and build the URL
+  const hostname = new URL(endpointUrl).hostname;
+  return `https://${hostname}/${trackerScriptName}`;
+}
+
 async function getInjectableWebAnalyticsContent({
   mode,
   options,
@@ -86,14 +112,23 @@ async function getInjectableWebAnalyticsContent({
     endpointUrl = "https://cloud.umami.is",
     excludeHash = false,
     excludeSearch = false,
-    hostUrl = "https://cloud.umami.is",
+    hostUrl,
     id,
     tag,
     trackerScriptName = "script.js",
     withPartytown = false,
   } = options;
 
-  const hostname = new URL(endpointUrl).hostname;
+  const scriptSrc = buildScriptSrc(endpointUrl, trackerScriptName);
+  const isRelativeEndpoint = isRelativePath(endpointUrl);
+
+  // Determine if we need to set `data-host-url`
+  // - For absolute endpoints: set if `hostUrl` differs from default
+  // - For relative endpoints: only set if `hostUrl` is explicitly provided
+  const shouldSetHostUrl = isRelativeEndpoint
+    ? hostUrl !== undefined
+    : hostUrl !== undefined && hostUrl !== "https://cloud.umami.is";
+
   const configAsString = [
     !autotrack ? `script.setAttribute("data-auto-track", "${autotrack}")` : "",
     beforeSendHandler ? `script.setAttribute("data-before-send", "${beforeSendHandler}")` : "",
@@ -103,7 +138,7 @@ async function getInjectableWebAnalyticsContent({
     doNotTrack ? `script.setAttribute("data-do-not-track", "${doNotTrack}")` : "",
     excludeHash ? `script.setAttribute("data-exclude-hash", "${excludeHash}")` : "",
     excludeSearch ? `script.setAttribute("data-exclude-search", "${excludeSearch}")` : "",
-    hostUrl !== "https://cloud.umami.is"
+    shouldSetHostUrl
       ? `script.setAttribute("data-host-url", "${hostUrl}")`
       : "",
     tag ? `script.setAttribute("data-tag", "${tag}")` : "",
@@ -116,7 +151,7 @@ async function getInjectableWebAnalyticsContent({
     var script = document.createElement("script");
     var viewTransitionsEnabled = document.querySelector("meta[name='astro-view-transitions-enabled']")?.content;
 
-    script.setAttribute("src", "https://${hostname}/${trackerScriptName}");
+    script.setAttribute("src", "${scriptSrc}");
     script.setAttribute("defer", true);
     script.setAttribute("data-website-id", "${id}");
     ${configAsString};

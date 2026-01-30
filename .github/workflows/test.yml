@@ -24,9 +24,6 @@ jobs:
           - 22
           - 24
     timeout-minutes: 30
-    defaults:
-      run:
-        working-directory: playground
     steps:
       - uses: actions/checkout@v5
       - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda
@@ -34,9 +31,19 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
-      - run: |
-          pnpm install --frozen-lockfile
-          pnpm exec playwright install --with-deps chromium --no-shell
-      - run: pnpm build
+      - run: pnpm install --frozen-lockfile
+      - name: Install Playwright browsers (playground)
+        run: pnpm exec playwright install --with-deps chromium --no-shell
+        working-directory: playground
+      - name: Install Playwright browsers (playground-relative)
+        run: pnpm exec playwright install --with-deps chromium --no-shell
+        working-directory: playground-relative
+      - name: Build package
+        run: pnpm build
         working-directory: packages/astro-umami
-      - run: pnpm test
+      - name: Test playground (absolute URLs)
+        run: pnpm test
+        working-directory: playground
+      - name: Test playground-relative (relative paths)
+        run: pnpm test
+        working-directory: playground-relative
