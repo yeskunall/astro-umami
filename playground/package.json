@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@yeskunall/astro-umami": "workspace:*",
-    "astro": "6.0.5",
+    "astro": "6.1.2",
     "astro-integration-kit": "0.20.0"
   },
   "devDependencies": {
