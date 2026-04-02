@@ -2,6 +2,7 @@
 
 > An [Astro integration](https://docs.astro.build/en/guides/integrations-guide/) to add [Umami Analytics](https://umami.is/) to your website.
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/yeskunall/astro-umami)
 [![E2E tests](https://github.com/yeskunall/astro-umami/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/yeskunall/astro-umami/actions/workflows/test.yml)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/yeskunall/astro-umami/blob/main/license)
 [![npm version](https://badge.fury.io/js/@yeskunall%2Fastro-umami.svg)](https://badge.fury.io/js/@yeskunall%2Fastro-umami)
