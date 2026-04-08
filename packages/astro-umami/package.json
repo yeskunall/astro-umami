@@ -39,11 +39,11 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --no-config --external astro-integration-kit --clean --dts --format esm --minify --target node18",
-    "dev": "tsup src/index.ts --no-config --format esm --clean --watch --target node18"
+    "build": "tsup src/index.ts --no-config --external astro-integration-kit --clean --dts --format esm --minify --target node22",
+    "dev": "tsup src/index.ts --no-config --format esm --clean --watch --target node22"
   },
   "peerDependencies": {
-    "astro": "^3.0.0 || ^4.0.0 || ^5.0.0"
+    "astro": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0"
   },
   "devDependencies": {
     "tsup": "8.5.1",
