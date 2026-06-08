@@ -50,6 +50,13 @@ interface UmamiOptions {
    */
   id: string;
   /**
+   * Enable automatic collection of [Core Web Vitals](https://web.dev/articles/vitals) (LCP, INP, CLS, FCP, and TTFB) from your visitors’ browsers.
+   *
+   * @default false
+   * @see [https://docs.umami.is/docs/performance](https://docs.umami.is/docs/performance)
+   */
+  performance?: boolean;
+  /**
    * Group events under a named [tag](https://docs.umami.is/docs/tags) for filtering and A/B testing. Tagged events can be filtered in the dashboard by their tag.
    */
   tag?: string;
@@ -88,6 +95,7 @@ async function getInjectableWebAnalyticsContent({
     excludeSearch = false,
     hostUrl = "https://cloud.umami.is",
     id,
+    performance = false,
     tag,
     trackerScriptName = "script.js",
     withPartytown = false,
@@ -106,6 +114,7 @@ async function getInjectableWebAnalyticsContent({
     hostUrl !== "https://cloud.umami.is"
       ? `script.setAttribute("data-host-url", "${hostUrl}")`
       : "",
+    performance ? `script.setAttribute("data-performance", "${performance}")` : "",
     tag ? `script.setAttribute("data-tag", "${tag}")` : "",
     withPartytown ? `script.setAttribute("type", "text/partytown")` : "",
   ]
