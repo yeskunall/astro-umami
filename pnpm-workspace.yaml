@@ -1,4 +1,6 @@
+ignoreWorkspaceRootCheck: true
 minimumReleaseAge: 10080
+saveExact: true
 
 packages:
   - "packages/*"

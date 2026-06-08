@@ -1,7 +1,7 @@
 {
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@9.15.6",
+  "packageManager": "pnpm@11.5.2",
   "license": "MIT",
   "engines": {
     "node": ">=22.12.0"
