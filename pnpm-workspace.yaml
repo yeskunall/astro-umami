@@ -1,3 +1,11 @@
+allowBuilds:
+  esbuild: true
+  sharp: false
+
+ignoreWorkspaceRootCheck: true
+minimumReleaseAge: 10080
+saveExact: true
+
 packages:
   - "packages/*"
   - playground

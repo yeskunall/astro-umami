@@ -6,13 +6,13 @@ type OptionalExceptFor<T, K extends keyof T> = {
 
 interface UmamiOptions {
   /**
-   * Umami tracks all events and pageviews for you automatically. Override this behavior if you plan on using [tracker functions](https://umami.is/docs/tracker-functions).
+   * Umami tracks all events and pageviews for you automatically. Override this behavior if you plan on using [tracker functions](https://docs.umami.is/docs/tracker-functions).
    *
    @default true
    */
   autotrack?: boolean;
   /**
-   * Specify a [function](https://umami.is/docs/tracker-configuration#data-before-send) that will be called before data is sent.
+   * Specify a [function](https://docs.umami.is/docs/tracker-configuration#data-before-send) that will be called before data is sent.
    */
   beforeSendHandler?: string;
   /**
@@ -46,18 +46,25 @@ interface UmamiOptions {
    */
   hostUrl?: string;
   /**
-   * The unique ID of your [website](https://umami.is/docs/add-a-website).
+   * The unique ID of your [website](https://docs.umami.is/docs/add-a-website).
    */
   id: string;
   /**
-   * Collect events under a specific tag. These events can be filtered in the dashboard by the specific tag.
+   * Enable automatic collection of [Core Web Vitals](https://web.dev/articles/vitals) (LCP, INP, CLS, FCP, and TTFB) from your visitors’ browsers.
+   *
+   * @default false
+   * @see [https://docs.umami.is/docs/performance](https://docs.umami.is/docs/performance)
+   */
+  performance?: boolean;
+  /**
+   * Group events under a named [tag](https://docs.umami.is/docs/tags) for filtering and A/B testing. Tagged events can be filtered in the dashboard by their tag.
    */
   tag?: string;
   /**
    * Assign a custom name to the tracker script.
    *
    * @default script.js
-   * @see [https://umami.is/docs/environment-variables](https://umami.is/docs/environment-variables)
+   * @see [https://docs.umami.is/docs/environment-variables](https://docs.umami.is/docs/environment-variables)
    */
   trackerScriptName?: string;
 }
@@ -88,6 +95,7 @@ async function getInjectableWebAnalyticsContent({
     excludeSearch = false,
     hostUrl = "https://cloud.umami.is",
     id,
+    performance = false,
     tag,
     trackerScriptName = "script.js",
     withPartytown = false,
@@ -106,6 +114,7 @@ async function getInjectableWebAnalyticsContent({
     hostUrl !== "https://cloud.umami.is"
       ? `script.setAttribute("data-host-url", "${hostUrl}")`
       : "",
+    performance ? `script.setAttribute("data-performance", "${performance}")` : "",
     tag ? `script.setAttribute("data-tag", "${tag}")` : "",
     withPartytown ? `script.setAttribute("type", "text/partytown")` : "",
   ]
