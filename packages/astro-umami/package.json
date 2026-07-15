@@ -39,14 +39,14 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --no-config --external astro-integration-kit --clean --dts --format esm --minify --target node22",
-    "dev": "tsup src/index.ts --no-config --format esm --clean --watch --target node22"
+    "build": "tsdown src/index.ts --dts --minify --platform neutral --target node22",
+    "dev": "tsdown src/index.ts --platform neutral --watch --target node22"
   },
   "peerDependencies": {
     "astro": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0"
   },
   "devDependencies": {
-    "tsup": "8.5.1",
+    "tsdown": "0.22.4",
     "typescript": "catalog:"
   },
   "publishConfig": {

@@ -3,7 +3,8 @@
   "compilerOptions": {
     "target": "ESNext",
     "jsx": "preserve",
-    "module": "ESNext"
+    "module": "ESNext",
+    "types": ["node"]
   },
   "exclude": [
     "dist"

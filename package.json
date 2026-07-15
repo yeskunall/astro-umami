@@ -4,7 +4,7 @@
   "packageManager": "pnpm@11.13.0",
   "license": "MIT",
   "engines": {
-    "node": ">=22.13.0"
+    "node": "^22.18.0 || >=24.11.0"
   },
   "scripts": {
     "build": "pnpm --filter=\"./packages/*\" --recursive run build",
