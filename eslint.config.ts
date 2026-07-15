@@ -29,7 +29,7 @@ const stylisticRulesAsWarnings: Record<string, Linter.RuleEntry>
   );
 
 export default defineConfig(
-  { ignores: ["**/dist/**"] },
+  { ignores: ["**/.astro/**", "**/dist/**"] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],
@@ -41,6 +41,12 @@ export default defineConfig(
     },
     rules: {
       ...stylisticRulesAsWarnings,
+    },
+  },
+  {
+    files: ["**/src/env.d.ts"],
+    rules: {
+      "@typescript-eslint/triple-slash-reference": "off",
     },
   },
 );
