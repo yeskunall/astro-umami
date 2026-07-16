@@ -1,6 +1,6 @@
-import { createResolver } from "astro-integration-kit";
-import { hmrIntegration } from "astro-integration-kit/dev";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "astro/config";
+import { createIntegrationWatcher } from "./integrations/watcher";
 
 const { default: packageName } = await import("@yeskunall/astro-umami");
 
@@ -20,10 +20,10 @@ export default defineConfig({
       tag: "test-tag",
       withPartytown: true,
     }),
-    hmrIntegration({
-      directory: createResolver(import.meta.url).resolve(
-        "../packages/astro-umami",
+    createIntegrationWatcher(
+      fileURLToPath(
+        new URL("../packages/astro-umami/dist", import.meta.url),
       ),
-    }),
+    ),
   ],
 });

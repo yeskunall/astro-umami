@@ -12,8 +12,7 @@
   },
   "dependencies": {
     "@yeskunall/astro-umami": "workspace:*",
-    "astro": "7.0.7",
-    "astro-integration-kit": "0.20.0"
+    "astro": "7.0.7"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.9",
