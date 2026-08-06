@@ -6,7 +6,8 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
     labels:
-      - dependencies
+      - type/chore
+      - area/dependencies
     groups:
       # Group ESLint dependencies together
       eslint:
