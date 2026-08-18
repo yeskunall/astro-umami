@@ -4,6 +4,14 @@ import { expect, test } from "@playwright/test";
 // the only required property as per the docs. In other words, if the script
 // exists on the page, then it should be safe to query based on this selector.
 
+test("`umami.disabled` is set by default in development", async ({ page }) => {
+  await page.goto("/");
+
+  const disabled = await page.evaluate(() => localStorage.getItem("umami.disabled"));
+
+  expect(disabled).toBe("1");
+});
+
 test("`autotrack` disabled", async ({ page }) => {
   await page.goto("/");
 
