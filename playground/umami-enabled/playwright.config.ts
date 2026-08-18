@@ -13,12 +13,12 @@ export default defineConfig({
   reporter: "html",
   retries: process.env.CI ? 2 : 0,
   use: {
-    baseURL: "http://localhost:4321",
+    baseURL: "http://localhost:4322",
     trace: "on-first-retry",
   },
   webServer: {
     command: "pnpm dev",
-    url: "http://localhost:4321",
+    url: "http://localhost:4322",
     reuseExistingServer: !process.env.CI,
   },
   workers: process.env.CI ? 1 : undefined,
