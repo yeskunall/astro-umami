@@ -1,6 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "astro/config";
-import { createIntegrationWatcher } from "./integrations/watcher";
+import { createIntegrationWatcher } from "../integrations/watcher";
 
 const { default: packageName } = await import("@yeskunall/astro-umami");
 
