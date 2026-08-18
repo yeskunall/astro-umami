@@ -22,7 +22,7 @@ export default defineConfig({
     }),
     createIntegrationWatcher(
       fileURLToPath(
-        new URL("../packages/astro-umami/dist", import.meta.url),
+        new URL("../../packages/astro-umami/dist", import.meta.url),
       ),
     ),
   ],
