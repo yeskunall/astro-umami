@@ -27,10 +27,11 @@ interface UmamiOptions {
   doNotTrack?: boolean;
   /**
    *
-   * The endpoint where your Umami instance is located.
+   * The URL or root-relative path where your Umami instance is located.
    *
    * @default https://cloud.umami.is
    * @example https://umami-on.fly.dev
+   * @example /_umami
    */
   endpointUrl?: string;
   /**
@@ -108,7 +109,10 @@ async function getInjectableWebAnalyticsContent({
     withPartytown = false,
   } = options;
 
-  const hostname = new URL(endpointUrl).hostname;
+  const isRelativeEndpoint = endpointUrl.startsWith("/");
+  const scriptSrc = isRelativeEndpoint
+    ? `${endpointUrl.replace(/\/+$/, "")}/${trackerScriptName}`
+    : `https://${new URL(endpointUrl).hostname}/${trackerScriptName}`;
   const configAsString = [
     !autotrack ? `script.setAttribute("data-auto-track", "${autotrack}")` : "",
     beforeSendHandler ? `script.setAttribute("data-before-send", "${beforeSendHandler}")` : "",
@@ -132,7 +136,7 @@ async function getInjectableWebAnalyticsContent({
     var script = document.createElement("script");
     var viewTransitionsEnabled = document.querySelector("meta[name='astro-view-transitions-enabled']")?.content;
 
-    script.setAttribute("src", "https://${hostname}/${trackerScriptName}");
+    script.setAttribute("src", "${scriptSrc}");
     script.setAttribute("defer", true);
     script.setAttribute("data-website-id", "${id}");
     ${configAsString};
