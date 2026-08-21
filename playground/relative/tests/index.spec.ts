@@ -9,6 +9,8 @@ const execFileAsync = promisify(execFile);
 const playgroundDirectory = fileURLToPath(new URL("..", import.meta.url));
 const outputDirectory = new URL("../dist/", import.meta.url);
 
+test.describe.configure({ mode: "serial" });
+
 async function buildWithEndpoint(endpointUrl: string): Promise<string> {
   await execFileAsync("pnpm", ["exec", "astro", "build"], {
     cwd: playgroundDirectory,
