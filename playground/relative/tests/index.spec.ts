@@ -1,4 +1,25 @@
+import { execFile } from "node:child_process";
+import { readFile, rm } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
+import { promisify } from "node:util";
+import { Script } from "node:vm";
 import { expect, test } from "@playwright/test";
+
+const execFileAsync = promisify(execFile);
+const playgroundDirectory = fileURLToPath(new URL("..", import.meta.url));
+const outputDirectory = new URL("../dist/", import.meta.url);
+
+async function buildWithEndpoint(endpointUrl: string): Promise<string> {
+  await execFileAsync("pnpm", ["exec", "astro", "build"], {
+    cwd: playgroundDirectory,
+    env: {
+      ...process.env,
+      UMAMI_ENDPOINT_URL: endpointUrl,
+    },
+  });
+
+  return readFile(new URL("index.html", outputDirectory), "utf8");
+}
 
 test("uses the relative endpoint for the tracker script", async ({ page }) => {
   await page.route("**/_umami/script.js", async (route) => {
@@ -74,4 +95,40 @@ test("does not request the Cloud Umami endpoint", async ({ page }) => {
   await page.goto("/");
 
   expect(cloudRequests).toHaveLength(0);
+});
+
+test("rejects protocol-relative endpoint URLs", async () => {
+  let stderr: string | undefined;
+
+  try {
+    await buildWithEndpoint("//analytics.example.com");
+  }
+  catch (error) {
+    stderr = (error as { stderr?: string }).stderr;
+  }
+  finally {
+    await rm(outputDirectory, { force: true, recursive: true });
+  }
+
+  expect(stderr).toContain(
+    "`endpointUrl` must be an absolute URL or a root-relative path",
+  );
+});
+
+test("escapes the endpoint URL in the generated inline script", async () => {
+  try {
+    const html = await buildWithEndpoint(
+      String.raw`/_umami";window.__INJECTED__=true;//`,
+    );
+    const inlineScript = html.match(/<script>([\s\S]*?)<\/script>/u)?.[1];
+
+    if (inlineScript === undefined) {
+      throw new Error("Expected the build output to contain an inline script");
+    }
+
+    expect(() => new Script(inlineScript)).not.toThrow();
+  }
+  finally {
+    await rm(outputDirectory, { force: true, recursive: true });
+  }
 });
