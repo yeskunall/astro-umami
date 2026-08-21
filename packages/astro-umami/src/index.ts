@@ -85,6 +85,16 @@ interface Options extends UmamiOptions {
   withPartytown?: boolean;
 }
 
+function trimTrailingSlashes(value: string): string {
+  let end = value.length;
+
+  while (end > 0 && value[end - 1] === "/") {
+    end -= 1;
+  }
+
+  return value.slice(0, end);
+}
+
 async function getInjectableWebAnalyticsContent({
   mode,
   options,
@@ -109,17 +119,22 @@ async function getInjectableWebAnalyticsContent({
     withPartytown = false,
   } = options;
 
-  if (endpointUrl.startsWith("//")) {
+  const isRelativeEndpoint = endpointUrl.startsWith("/");
+  const scriptSrc = isRelativeEndpoint
+    ? `${trimTrailingSlashes(endpointUrl)}/${trackerScriptName}`
+    : `https://${new URL(endpointUrl).hostname}/${trackerScriptName}`;
+
+  if (
+    isRelativeEndpoint
+    && new URL(scriptSrc, "https://astro-umami.invalid").origin
+    !== "https://astro-umami.invalid"
+  ) {
     throw new TypeError(
       "`endpointUrl` must be an absolute URL or a root-relative path",
     );
   }
 
-  const isRelativeEndpoint = endpointUrl.startsWith("/");
-  const scriptSrc = isRelativeEndpoint
-    ? `${endpointUrl.replace(/\/+$/, "")}/${trackerScriptName}`
-    : `https://${new URL(endpointUrl).hostname}/${trackerScriptName}`;
-  const scriptSrcAsString = JSON.stringify(scriptSrc);
+  const scriptSrcAsString = JSON.stringify(scriptSrc).replaceAll("<", "\\u003C");
   const configAsString = [
     !autotrack ? `script.setAttribute("data-auto-track", "${autotrack}")` : "",
     beforeSendHandler ? `script.setAttribute("data-before-send", "${beforeSendHandler}")` : "",
