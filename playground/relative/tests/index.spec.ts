@@ -23,6 +23,30 @@ async function buildWithEndpoint(endpointUrl: string): Promise<string> {
   return readFile(new URL("index.html", outputDirectory), "utf8");
 }
 
+async function getBuildError(endpointUrl: string): Promise<string | undefined> {
+  try {
+    await buildWithEndpoint(endpointUrl);
+  }
+  catch (error) {
+    return (error as { stderr?: string }).stderr;
+  }
+  finally {
+    await rm(outputDirectory, { force: true, recursive: true });
+  }
+}
+
+function getInlineScript(html: string): string {
+  const openingTag = "<script>";
+  const start = html.indexOf(openingTag);
+  const end = html.indexOf("</script>", start + openingTag.length);
+
+  if (start === -1 || end === -1) {
+    throw new Error("Expected the build output to contain an inline script");
+  }
+
+  return html.slice(start + openingTag.length, end);
+}
+
 test("uses the relative endpoint for the tracker script", async ({ page }) => {
   await page.route("**/_umami/script.js", async (route) => {
     await route.fulfill({
@@ -100,33 +124,27 @@ test("does not request the Cloud Umami endpoint", async ({ page }) => {
 });
 
 test("rejects protocol-relative endpoint URLs", async () => {
-  let stderr: string | undefined;
-
-  try {
-    await buildWithEndpoint("//analytics.example.com");
-  }
-  catch (error) {
-    stderr = (error as { stderr?: string }).stderr;
-  }
-  finally {
-    await rm(outputDirectory, { force: true, recursive: true });
-  }
+  const stderr = await getBuildError("//analytics.example.com");
 
   expect(stderr).toContain(
     "`endpointUrl` must be an absolute URL or a root-relative path",
   );
 });
 
-test("escapes the endpoint URL in the generated inline script", async () => {
+test("rejects backslash network-path endpoint URLs", async () => {
+  const stderr = await getBuildError(String.raw`/\analytics.example.com`);
+
+  expect(stderr).toContain(
+    "`endpointUrl` must be an absolute URL or a root-relative path",
+  );
+});
+
+test("escapes HTML script terminators in the endpoint URL", async () => {
   try {
     const html = await buildWithEndpoint(
-      String.raw`/_umami";window.__INJECTED__=true;//`,
+      String.raw`/_umami";</script><script>window.__INJECTED__=true</script>`,
     );
-    const inlineScript = html.match(/<script>([\s\S]*?)<\/script>/u)?.[1];
-
-    if (inlineScript === undefined) {
-      throw new Error("Expected the build output to contain an inline script");
-    }
+    const inlineScript = getInlineScript(html);
 
     expect(() => new Script(inlineScript)).not.toThrow();
   }
