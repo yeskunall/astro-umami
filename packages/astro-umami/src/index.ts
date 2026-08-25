@@ -71,6 +71,12 @@ interface UmamiOptions {
 
 interface Options extends UmamiOptions {
   /**
+   * Enable tracking during development. By default, events and pageviews are disabled while running `astro dev`.
+   *
+   * @default false
+   */
+  enabledInDevelopment?: boolean;
+  /**
    * Serve the tracking script using [Partytown](https://partytown.qwik.dev/).
    *
    * @see [https://docs.astro.build/en/guides/integrations-guide/partytown/](https://docs.astro.build/en/guides/integrations-guide/partytown/)
@@ -90,6 +96,7 @@ async function getInjectableWebAnalyticsContent({
     beforeSendHandler,
     domains = [],
     doNotTrack = false,
+    enabledInDevelopment = false,
     endpointUrl = "https://cloud.umami.is",
     excludeHash = false,
     excludeSearch = false,
@@ -139,6 +146,16 @@ async function getInjectableWebAnalyticsContent({
   `;
 
   if (mode === "development") {
+    if (enabledInDevelopment) {
+      return `
+        (function () {
+          localStorage.removeItem("umami.disabled");
+
+          ${commonScript}
+        })()
+      `;
+    }
+
     return `
       (function () {
         localStorage.setItem("umami.disabled", "1");

@@ -43,11 +43,36 @@ importers:
         specifier: 'catalog:'
         version: 6.0.3
 
-  playground:
+  playground/default:
     dependencies:
       '@yeskunall/astro-umami':
         specifier: workspace:*
-        version: link:../packages/astro-umami
+        version: link:../../packages/astro-umami
+      astro:
+        specifier: 7.1.6
+        version: 7.1.6(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3)(@types/node@26.1.2)(jiti@2.7.0)(rollup@4.59.0)(yaml@2.8.2)
+    devDependencies:
+      '@astrojs/check':
+        specifier: 0.9.10
+        version: 0.9.10(prettier@3.7.4)(typescript@6.0.3)
+      '@playwright/test':
+        specifier: 1.62.0
+        version: 1.62.0
+      '@types/node':
+        specifier: 26.1.2
+        version: 26.1.2
+      playwright:
+        specifier: 1.62.0
+        version: 1.62.0
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+
+  playground/umami-enabled:
+    dependencies:
+      '@yeskunall/astro-umami':
+        specifier: workspace:*
+        version: link:../../packages/astro-umami
       astro:
         specifier: 7.1.6
         version: 7.1.6(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3)(@types/node@26.1.2)(jiti@2.7.0)(rollup@4.59.0)(yaml@2.8.2)

@@ -12,7 +12,7 @@
 ## Highlights
 
 - Automatically detects if you’re using [View Transitions](https://docs.astro.build/en/guides/view-transitions/) and adds a [`data-astro-rerun`](https://docs.astro.build/en/guides/view-transitions/#data-astro-rerun) attribute
-- Disables events and pageviews during development
+- Disables events and pageviews during development (opt-in via `enabledInDevelopment`)
 - Supports all [configuration](https://docs.umami.is/docs/tracker-configuration) options, unlike [`astro-analytics`](https://github.com/Destiner/astro-analytics)
 - Provides inline documentation for all configuration options (thanks to [TypeScript](https://github.com/yeskunall/astro-umami/blob/main/packages/astro-umami/src/index.ts#L7))
 - (_Optionally_) Serve the tracking script using [Partytown](https://partytown.qwik.dev/) (v0.0.5 onwards)
@@ -52,3 +52,15 @@ export default defineConfig({
 ```
 
 ###### For all configurable options, see the [interface](https://github.com/yeskunall/astro-umami/blob/main/packages/astro-umami/src/index.ts#L7).
+
+### Enable tracking during development
+
+By default, events and pageviews are disabled while running `astro dev`. Pass `enabledInDevelopment: true` to track during development:
+
+```diff
+export default defineConfig({
+  integrations: [
++    umami({ id: "94db1cb1-74f4-4a40-ad6c-962362670409", enabledInDevelopment: true }),
+  ],
+});
+```
