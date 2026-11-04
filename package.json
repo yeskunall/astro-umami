@@ -1,10 +1,10 @@
 {
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@11.22.0",
+  "packageManager": "pnpm@12.16.1",
   "license": "MIT",
   "engines": {
-    "node": "^22.18.0 || >=24.11.0"
+    "node": "^22.23.4 || >=24.11.0"
   },
   "scripts": {
     "build": "pnpm --filter=\"./packages/*\" --recursive run build",
