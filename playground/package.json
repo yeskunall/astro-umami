@@ -6,6 +6,9 @@
   "scripts": {
     "build": "astro check && astro build",
     "dev": "astro dev",
+    "fixture:build": "node scripts/build-fixtures.mjs",
+    "fixture:serve": "node scripts/serve-fixtures.mjs",
+    "fixture:start": "pnpm fixture:build && pnpm fixture:serve",
     "preview": "astro preview",
     "start": "astro dev",
     "test": "playwright test"

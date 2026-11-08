@@ -1,0 +1,10 @@
+{
+  "id": "94db1cb1-74f4-4a40-ad6c-962362670409",
+  "endpointUrl": "https://analytics.umami.test",
+  "variants": [
+    { "name": "omitted", "port": 4322, "credentials": null },
+    { "name": "omit", "port": 4323, "credentials": "omit" },
+    { "name": "same-origin", "port": 4324, "credentials": "same-origin" },
+    { "name": "include", "port": 4325, "credentials": "include" }
+  ]
+}
