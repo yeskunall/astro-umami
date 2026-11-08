@@ -207,8 +207,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/astro-umami
       astro:
-        specifier: 7.1.6
-        version: 7.1.6(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3)(@types/node@26.1.2)(jiti@2.7.0)(rollup@4.59.0)(yaml@2.8.2)
+        specifier: 7.4.2
+        version: 7.4.2(@types/node@26.1.2)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.8.2)
     devDependencies:
       '@astrojs/check':
         specifier: 0.9.10
