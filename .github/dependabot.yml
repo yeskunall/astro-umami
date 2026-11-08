@@ -2,6 +2,8 @@ version: 2
 updates:
   - package-ecosystem: github-actions
     directory: /
+    allow:
+      - dependency-name: pullfrog/pullfrog
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
