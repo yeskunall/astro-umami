@@ -1,5 +1,5 @@
 {
-  "name": "playground-umami-enabled",
+  "name": "playground",
   "type": "module",
   "version": "0.0.0",
   "private": true,
@@ -8,17 +8,17 @@
     "dev": "astro dev",
     "preview": "astro preview",
     "start": "astro dev",
-    "test": "playwright test"
+    "test": "node run-tests.mjs"
   },
   "dependencies": {
     "@yeskunall/astro-umami": "workspace:*",
-    "astro": "7.4.2"
+    "astro": "7.4.4"
   },
   "devDependencies": {
-    "@astrojs/check": "0.9.10",
-    "@playwright/test": "1.62.0",
-    "@types/node": "26.1.2",
-    "playwright": "1.62.0",
+    "@astrojs/check": "0.9.12",
+    "@playwright/test": "1.64.1",
+    "@types/node": "26.6.6",
+    "playwright": "1.64.1",
     "typescript": "catalog:"
   }
 }
