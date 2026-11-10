@@ -10,7 +10,7 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"], channel: "chromium" },
     },
   ],
-  reporter: [["html", { outputFolder: `playwright-report/${scenario}`, open: "never" }]],
+  reporter: [["html", { outputFolder: `playwright-report/${scenario}` }]],
   outputDir: `test-results/${scenario}`,
   retries: process.env.CI ? 2 : 0,
   use: {
