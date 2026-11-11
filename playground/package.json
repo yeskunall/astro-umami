@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@yeskunall/astro-umami": "workspace:*",
-    "astro": "7.4.4"
+    "astro": "7.4.5"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
