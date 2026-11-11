@@ -12,3 +12,4 @@ catalog:
 packages:
   - "packages/*"
   - playground
+  - playground/relative
