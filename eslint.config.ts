@@ -29,7 +29,14 @@ const stylisticRulesAsWarnings: Record<string, Linter.RuleEntry>
   );
 
 export default defineConfig(
-  { ignores: ["**/.astro/**", "**/dist/**"] },
+  {
+    ignores: [
+      "**/.astro/**",
+      "**/dist/**",
+      "playground/fixtures/production/dist-*/**",
+      "playground/fixtures/production/tracker/**",
+    ],
+  },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],
