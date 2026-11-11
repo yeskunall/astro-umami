@@ -1,8 +1,9 @@
+import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "astro/config";
 import { createIntegrationWatcher } from "./integrations/watcher";
-import { scenario } from "./scenario";
 
+const scenario = process.env.PLAYGROUND_SCENARIO ?? "default";
 const { default: packageName } = await import("@yeskunall/astro-umami");
 
 // https://astro.build/config

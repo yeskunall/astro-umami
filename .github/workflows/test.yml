@@ -40,6 +40,4 @@ jobs:
           pnpm exec playwright install --with-deps chromium --no-shell
       - run: pnpm build
         working-directory: packages/astro-umami
-      - run: pnpm test
-        env:
-          PLAYGROUND_SCENARIO: ${{ matrix.scenario }}
+      - run: pnpm run test:${{ matrix.scenario }}
