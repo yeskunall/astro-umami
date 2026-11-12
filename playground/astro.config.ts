@@ -9,7 +9,7 @@ const { default: packageName } = await import("@yeskunall/astro-umami");
 // https://astro.build/config
 export default defineConfig({
   integrations: [
-    packageName(scenario === "umami-enabled"
+    packageName(scenario === "enabled-in-development"
       ? {
           enabledInDevelopment: true,
           id: "94db1cb1-74f4-4a40-ad6c-962362670409",
