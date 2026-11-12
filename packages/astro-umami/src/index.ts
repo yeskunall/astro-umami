@@ -12,10 +12,7 @@ interface UmamiOptions {
    */
   autotrack?: boolean;
   /**
-   * Set this to `false` to disable automatic pageview tracking while keeping the rest of the tracker initialized.
-   * This includes the initial pageview and pageviews on client-side navigation. Use it instead of `autotrack: false`
-   * when calling [tracker functions](https://docs.umami.is/docs/tracker-functions) manually but still wanting click
-   * tracking and performance collection.
+   * Disable automatic pageview tracking while keeping the rest of the tracker initialized. Use this when you want to call `umami.track()` manually but still keep features like performance tracking enabled.
    *
    * @default true
    * @see [https://docs.umami.is/docs/tracker-configuration#data-auto-pageview](https://docs.umami.is/docs/tracker-configuration#data-auto-pageview)
