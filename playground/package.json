@@ -8,7 +8,9 @@
     "dev": "astro dev",
     "preview": "astro preview",
     "start": "astro dev",
-    "test": "playwright test"
+    "test": "pnpm run test:default && pnpm run test:enabled-in-development",
+    "test:default": "ASTRO_DEV_BACKGROUND=0 PLAYGROUND_SCENARIO=default playwright test tests/default",
+    "test:enabled-in-development": "ASTRO_DEV_BACKGROUND=0 PLAYGROUND_SCENARIO=enabled-in-development playwright test tests/enabled-in-development"
   },
   "dependencies": {
     "@yeskunall/astro-umami": "workspace:*",

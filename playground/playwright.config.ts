@@ -1,8 +1,9 @@
 import process from "node:process";
 import { defineConfig, devices } from "@playwright/test";
 
+const scenario = process.env.PLAYGROUND_SCENARIO ?? "default";
+
 export default defineConfig({
-  testDir: "tests",
   fullyParallel: true,
   projects: [
     {
@@ -10,7 +11,8 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"], channel: "chromium" },
     },
   ],
-  reporter: "html",
+  reporter: [["html", { outputFolder: `playwright-report/${scenario}` }]],
+  outputDir: `test-results/${scenario}`,
   retries: process.env.CI ? 2 : 0,
   use: {
     baseURL: "http://localhost:4321",
@@ -19,7 +21,8 @@ export default defineConfig({
   webServer: {
     command: "pnpm dev",
     url: "http://localhost:4321",
-    reuseExistingServer: !process.env.CI,
+    env: { PLAYGROUND_SCENARIO: scenario },
+    reuseExistingServer: false,
   },
   workers: process.env.CI ? 1 : undefined,
 });
