@@ -12,6 +12,16 @@ interface UmamiOptions {
    */
   autotrack?: boolean;
   /**
+   * Set this to `false` to disable automatic pageview tracking while keeping the rest of the tracker initialized.
+   * This includes the initial pageview and pageviews on client-side navigation. Use it instead of `autotrack: false`
+   * when calling [tracker functions](https://docs.umami.is/docs/tracker-functions) manually but still wanting click
+   * tracking and performance collection.
+   *
+   * @default true
+   * @see [https://docs.umami.is/docs/tracker-configuration#data-auto-pageview](https://docs.umami.is/docs/tracker-configuration#data-auto-pageview)
+   */
+  autoPageview?: boolean;
+  /**
    * Specify a [function](https://docs.umami.is/docs/tracker-configuration#data-before-send) that will be called before data is sent.
    */
   beforeSendHandler?: string;
@@ -93,6 +103,7 @@ async function getInjectableWebAnalyticsContent({
 }): Promise<string> {
   const {
     autotrack = true,
+    autoPageview = true,
     beforeSendHandler,
     domains = [],
     doNotTrack = false,
@@ -111,6 +122,7 @@ async function getInjectableWebAnalyticsContent({
   const hostname = new URL(endpointUrl).hostname;
   const configAsString = [
     !autotrack ? `script.setAttribute("data-auto-track", "${autotrack}")` : "",
+    !autoPageview ? `script.setAttribute("data-auto-pageview", "${autoPageview}")` : "",
     beforeSendHandler ? `script.setAttribute("data-before-send", "${beforeSendHandler}")` : "",
     domains.length > 0
       ? `script.setAttribute("data-domains", "${domains.join(",")}")`
