@@ -71,7 +71,7 @@ interface UmamiOptions {
 
 interface Options extends UmamiOptions {
   /**
-   * Enable tracking during development. By default, events and pageviews are disabled while running `astro dev`.
+   * Enable tracking during development. This has no effect in production.
    *
    * @default false
    */
