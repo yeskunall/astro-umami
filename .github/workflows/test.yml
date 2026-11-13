@@ -23,6 +23,7 @@ jobs:
           - 24
         scenario:
           - default
+          - auto-pageview
           - enabled-in-development
     timeout-minutes: 30
     defaults:
