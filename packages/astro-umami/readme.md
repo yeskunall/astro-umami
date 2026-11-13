@@ -51,6 +51,21 @@ pnpm add @yeskunall/astro-umami@0.0.10
  });
 ```
 
+### Disable automatic pageviews
+
+Set `autoPageview` to `false` to disable automatic pageviews while keeping the rest of the tracker initialized. Useful when you call `umami.track()` manually but still want click tracking or performance collection.
+
+```diff
+ export default defineConfig({
+   integrations: [
+     umami({
+       id: "94db1cb1-74f4-4a40-ad6c-962362670409",
++      autoPageview: false,
+     }),
+   ],
+ });
+```
+
 ### Enable tracking during development
 
 ```diff
