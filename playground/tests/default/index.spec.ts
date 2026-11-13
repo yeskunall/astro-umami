@@ -195,6 +195,8 @@ test("`performance` enabled", async ({ page }) => {
 test("`salt` matches", async ({ page }) => {
   await page.goto("/");
 
+  // The playground salt contains a quote, a backslash, and `</script>`, so this
+  // also fails if the injected script stops escaping the value.
   const salt = await page.evaluate(
     async () => {
       const salt = document
@@ -207,7 +209,7 @@ test("`salt` matches", async ({ page }) => {
     },
   );
 
-  expect(salt).toBe("2026-10-30");
+  expect(salt).toBe("2026-10-30\"\\</script>");
 });
 
 test("`saltRotation` matches", async ({ page }) => {
