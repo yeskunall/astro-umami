@@ -29,7 +29,7 @@ export default defineConfig({
             domains: ["example.com", "com.example"],
             hostUrl: "https://analytics.eu.umami.is",
             performance: true,
-            salt: "2026-10-30",
+            salt: "2026-10-30\"\\</script>",
             saltRotation: "daily",
             tag: "spring \"sale\" from C:\\temp\n</script><script>window.umamiBrokeOut = true</script>",
             withPartytown: true,
