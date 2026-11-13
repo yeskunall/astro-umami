@@ -24,6 +24,18 @@ interface UmamiOptions {
    */
   beforeSendHandler?: string;
   /**
+   * Set a [Distinct ID](https://docs.umami.is/docs/distinct-ids) for the visitor when the page loads. Every request the tracker sends, including the first pageview, carries the ID, so the visit is tied to the user from the start.
+   *
+   * This is the recommended way to identify users whenever your page already knows who is logged in, for example when it is rendered on the server. Visitors on a shared network (an office, school, or VPN) can have the same IP address and browser, and Umami does not use cookies to tell them apart. Identifying them from the first pageview keeps each user's activity in their own session.
+   *
+   * The value is read once, when the script loads. If a user logs in without a full page reload, call [`umami.identify()`](https://docs.umami.is/docs/tracker-functions) instead. The value is visible in your page's HTML, so use an internal user ID or a hash rather than an email address. It has a 50-character limit.
+   *
+   * This integration reads its options once, when the Astro config is evaluated, so the value you set here is the same for every visitor of that deployment. Use it only when a single identity should apply to the whole site; to identify each visitor individually, call [`umami.identify()`](https://docs.umami.is/docs/tracker-functions) from client-side code after the tracker loads.
+   *
+   * @see [https://docs.umami.is/docs/tracker-configuration#data-distinct-id](https://docs.umami.is/docs/tracker-configuration#data-distinct-id)
+   */
+  distinctId?: string;
+  /**
    * If you want the tracker to only run on specific domains, add them to this list.
    *
    * @example ["mywebsite.com", "mywebsite2.com"]
@@ -103,6 +115,7 @@ async function getInjectableWebAnalyticsContent({
     autotrack = true,
     autoPageview = true,
     beforeSendHandler,
+    distinctId,
     domains = [],
     doNotTrack = false,
     enabledInDevelopment = false,
@@ -122,6 +135,10 @@ async function getInjectableWebAnalyticsContent({
     !autotrack ? `script.setAttribute("data-auto-track", "${autotrack}")` : "",
     !autoPageview ? `script.setAttribute("data-auto-pageview", "${autoPageview}")` : "",
     beforeSendHandler ? `script.setAttribute("data-before-send", "${beforeSendHandler}")` : "",
+    // Serialize as a JavaScript string and escape `<` so a value like `user"42</script>` cannot break the inline script.
+    distinctId
+      ? `script.setAttribute("data-distinct-id", ${JSON.stringify(distinctId).replace(/</g, "\\u003C")})`
+      : "",
     domains.length > 0
       ? `script.setAttribute("data-domains", "${domains.join(",")}")`
       : "",
