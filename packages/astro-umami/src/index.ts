@@ -30,6 +30,8 @@ interface UmamiOptions {
    *
    * The value is read once, when the script loads. If a user logs in without a full page reload, call [`umami.identify()`](https://docs.umami.is/docs/tracker-functions) instead. The value is visible in your page's HTML, so use an internal user ID or a hash rather than an email address. It has a 50-character limit.
    *
+   * This integration reads its options once, when the Astro config is evaluated, so the value you set here is the same for every visitor of that deployment. Use it only when a single identity should apply to the whole site; to identify each visitor individually, call [`umami.identify()`](https://docs.umami.is/docs/tracker-functions) from client-side code after the tracker loads.
+   *
    * @see [https://docs.umami.is/docs/tracker-configuration#data-distinct-id](https://docs.umami.is/docs/tracker-configuration#data-distinct-id)
    */
   distinctId?: string;
@@ -133,7 +135,10 @@ async function getInjectableWebAnalyticsContent({
     !autotrack ? `script.setAttribute("data-auto-track", "${autotrack}")` : "",
     !autoPageview ? `script.setAttribute("data-auto-pageview", "${autoPageview}")` : "",
     beforeSendHandler ? `script.setAttribute("data-before-send", "${beforeSendHandler}")` : "",
-    distinctId ? `script.setAttribute("data-distinct-id", "${distinctId}")` : "",
+    // Serialize as a JavaScript string and escape `<` so a value like `user"42</script>` cannot break the inline script.
+    distinctId
+      ? `script.setAttribute("data-distinct-id", ${JSON.stringify(distinctId).replace(/</g, "\\u003C")})`
+      : "",
     domains.length > 0
       ? `script.setAttribute("data-domains", "${domains.join(",")}")`
       : "",

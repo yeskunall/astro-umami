@@ -63,7 +63,7 @@ test("`distinctId` matches", async ({ page }) => {
     },
   );
 
-  expect(src).toBe("test-distinct-id");
+  expect(src).toBe("test-\"distinct-id\"</script>");
 });
 
 test("`doNotTrack` enabled", async ({ page }) => {
