@@ -19,25 +19,20 @@ export default defineConfig({
             autoPageview: false,
             id: "94db1cb1-74f4-4a40-ad6c-962362670409",
           }
-        : scenario === "special-characters"
-          ? {
-              id: "94db1cb1-74f4-4a40-ad6c-962362670409",
-              tag: "spring \"sale\" from C:\\temp\n</script><script>window.umamiBrokeOut = true</script>",
-              trackerScriptName: "tracker\".js",
-            }
-          : {
-              autotrack: false,
-              beforeSendHandler: "beforeSendHandler",
-              doNotTrack: true,
-              excludeHash: true,
-              excludeSearch: true,
-              id: "94db1cb1-74f4-4a40-ad6c-962362670409",
-              domains: ["example.com", "com.example"],
-              hostUrl: "https://analytics.eu.umami.is",
-              performance: true,
-              tag: "test-tag",
-              withPartytown: true,
-            }),
+        : {
+            autotrack: false,
+            beforeSendHandler: "beforeSendHandler",
+            doNotTrack: true,
+            excludeHash: true,
+            excludeSearch: true,
+            id: "94db1cb1-74f4-4a40-ad6c-962362670409",
+            domains: ["example.com", "com.example"],
+            hostUrl: "https://analytics.eu.umami.is",
+            performance: true,
+            tag: "spring \"sale\" from C:\\temp\n</script><script>window.umamiBrokeOut = true</script>",
+            trackerScriptName: "tracker\".js",
+            withPartytown: true,
+          }),
     createIntegrationWatcher(
       fileURLToPath(
         new URL("../packages/astro-umami/dist", import.meta.url),

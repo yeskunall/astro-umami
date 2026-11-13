@@ -92,8 +92,9 @@ interface Options extends UmamiOptions {
   withPartytown?: boolean;
 }
 
-// Serialize values before interpolating them into the inline script so quotes,
-// newlines, and `</script>` sequences cannot break the emitted JavaScript.
+// Serialize values before interpolating them into the inline script. JSON
+// handles quotes, backslashes, and control characters; `<` is escaped as well
+// because only `<` can close the surrounding `<script>` block.
 const jsString = (value: string) => JSON.stringify(value).replace(/</g, "\\u003C");
 
 async function getInjectableWebAnalyticsContent({
