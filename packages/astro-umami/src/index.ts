@@ -4,6 +4,10 @@ type OptionalExceptFor<T, K extends keyof T> = {
   [P in keyof T]: P extends K ? T[P] : T[P] | undefined;
 } & Pick<T, K>;
 
+type SaltRotation = "hourly" | "daily" | "weekly" | "monthly";
+
+const saltRotationValues: SaltRotation[] = ["hourly", "daily", "weekly", "monthly"];
+
 interface UmamiOptions {
   /**
    * By default, Umami initializes pageview tracking, click tracking, path change detection, and optional features like performance tracking. Set this to `false` only if you want to disable tracker initialization entirely and send data yourself using the [tracker functions](https://docs.umami.is/docs/tracker-functions).
@@ -65,6 +69,22 @@ interface UmamiOptions {
    */
   performance?: boolean;
   /**
+   * A value mixed into the server’s session salt. Visitors with different salts get different session IDs, so changing the value starts new sessions. For example, a salt of `2026-10-30` that you change every day rotates sessions daily.
+   *
+   * The salt is only used when the server sets `ENABLE_CLIENT_SALT`. It adds to the server salt and never replaces it, so it can split sessions further but cannot merge them. When both `salt` and `saltRotation` are set, `salt` wins.
+   *
+   * @see [https://docs.umami.is/docs/tracker-configuration#data-salt](https://docs.umami.is/docs/tracker-configuration#data-salt)
+   */
+  salt?: string;
+  /**
+   * Generates the salt from the current UTC time instead of a fixed value. Accepts `hourly`, `daily`, `weekly`, or `monthly`. Weeks start on Sunday. The salt is recalculated for every request, so a page that stays open still rotates.
+   *
+   * This setting is ignored when `salt` is set. Like `salt`, it only takes effect when the server sets `ENABLE_CLIENT_SALT`.
+   *
+   * @see [https://docs.umami.is/docs/tracker-configuration#data-salt-rotation](https://docs.umami.is/docs/tracker-configuration#data-salt-rotation)
+   */
+  saltRotation?: SaltRotation;
+  /**
    * Group events under a named [tag](https://docs.umami.is/docs/tags) for filtering and A/B testing. Tagged events can be filtered in the dashboard by their tag.
    */
   tag?: string;
@@ -112,10 +132,18 @@ async function getInjectableWebAnalyticsContent({
     hostUrl = "https://cloud.umami.is",
     id,
     performance = false,
+    salt,
+    saltRotation,
     tag,
     trackerScriptName = "script.js",
     withPartytown = false,
   } = options;
+
+  if (saltRotation !== undefined && !saltRotationValues.includes(saltRotation)) {
+    throw new Error(
+      `Invalid \`saltRotation\` option: ${JSON.stringify(saltRotation)}. Expected one of ${saltRotationValues.join(", ")}.`,
+    );
+  }
 
   const hostname = new URL(endpointUrl).hostname;
   const configAsString = [
@@ -132,6 +160,8 @@ async function getInjectableWebAnalyticsContent({
       ? `script.setAttribute("data-host-url", "${hostUrl}")`
       : "",
     performance ? `script.setAttribute("data-performance", "${performance}")` : "",
+    salt ? `script.setAttribute("data-salt", ${JSON.stringify(salt).replace(/</g, "\\u003C")})` : "",
+    saltRotation ? `script.setAttribute("data-salt-rotation", "${saltRotation}")` : "",
     tag ? `script.setAttribute("data-tag", "${tag}")` : "",
     withPartytown ? `script.setAttribute("type", "text/partytown")` : "",
   ]
