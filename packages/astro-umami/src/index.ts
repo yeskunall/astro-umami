@@ -6,7 +6,7 @@ type OptionalExceptFor<T, K extends keyof T> = {
 
 interface UmamiOptions {
   /**
-   * Umami initializes pageview tracking, click tracking, path change detection, and optional features like performance tracking for you automatically. Set this to `false` only to disable tracker initialization entirely and send data yourself using [tracker functions](https://docs.umami.is/docs/tracker-functions); to send pageviews manually while keeping the rest initialized, use `autoPageview: false` instead.
+   * By default, Umami initializes pageview tracking, click tracking, path change detection, and optional features like performance tracking. Set this to `false` only if you want to disable tracker initialization entirely and send data yourself using the [tracker functions](https://docs.umami.is/docs/tracker-functions).
    *
    * @default true
    * @see [https://docs.umami.is/docs/tracker-configuration#data-auto-track](https://docs.umami.is/docs/tracker-configuration#data-auto-track)
