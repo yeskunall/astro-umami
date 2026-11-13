@@ -22,6 +22,7 @@ export default defineConfig({
         : {
             autotrack: false,
             beforeSendHandler: "beforeSendHandler",
+            distinctId: "test-distinct-id",
             doNotTrack: true,
             excludeHash: true,
             excludeSearch: true,

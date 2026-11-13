@@ -48,6 +48,24 @@ test("`beforeSendHandler` is valid", async ({ page }) => {
   expect(src).toBe("beforeSendHandler");
 });
 
+test("`distinctId` matches", async ({ page }) => {
+  await page.goto("/");
+
+  const src = await page.evaluate(
+    async () => {
+      const distinctId = document
+        .querySelector<HTMLScriptElement>(("script[data-website-id]"))
+        ?.attributes
+        .getNamedItem("data-distinct-id")
+        ?.textContent;
+
+      return distinctId;
+    },
+  );
+
+  expect(src).toBe("test-distinct-id");
+});
+
 test("`doNotTrack` enabled", async ({ page }) => {
   await page.goto("/");
 

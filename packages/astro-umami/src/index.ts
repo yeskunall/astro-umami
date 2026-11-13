@@ -24,6 +24,14 @@ interface UmamiOptions {
    */
   beforeSendHandler?: string;
   /**
+   * Set a [Distinct ID](https://docs.umami.is/docs/distinct-ids) for the visitor when the page loads. Every request the tracker sends, including the first pageview, carries the ID, so the visit is tied to the user from the start.
+   *
+   * The value is read once, when the script loads. If a user logs in without a full page reload, call `umami.identify()` instead. The value is visible in your page's HTML, so use an internal user ID or a hash rather than an email address. It has a 50-character limit.
+   *
+   * @see [https://docs.umami.is/docs/tracker-configuration#data-distinct-id](https://docs.umami.is/docs/tracker-configuration#data-distinct-id)
+   */
+  distinctId?: string;
+  /**
    * If you want the tracker to only run on specific domains, add them to this list.
    *
    * @example ["mywebsite.com", "mywebsite2.com"]
@@ -103,6 +111,7 @@ async function getInjectableWebAnalyticsContent({
     autotrack = true,
     autoPageview = true,
     beforeSendHandler,
+    distinctId,
     domains = [],
     doNotTrack = false,
     enabledInDevelopment = false,
@@ -122,6 +131,7 @@ async function getInjectableWebAnalyticsContent({
     !autotrack ? `script.setAttribute("data-auto-track", "${autotrack}")` : "",
     !autoPageview ? `script.setAttribute("data-auto-pageview", "${autoPageview}")` : "",
     beforeSendHandler ? `script.setAttribute("data-before-send", "${beforeSendHandler}")` : "",
+    distinctId ? `script.setAttribute("data-distinct-id", "${distinctId}")` : "",
     domains.length > 0
       ? `script.setAttribute("data-domains", "${domains.join(",")}")`
       : "",
