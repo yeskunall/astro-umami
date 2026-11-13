@@ -192,6 +192,44 @@ test("`performance` enabled", async ({ page }) => {
   expect(performance).toBe("true");
 });
 
+test("`salt` matches", async ({ page }) => {
+  await page.goto("/");
+
+  // The playground salt contains a quote, a backslash, and `</script>`, so this
+  // also fails if the injected script stops escaping the value.
+  const salt = await page.evaluate(
+    async () => {
+      const salt = document
+        .querySelector<HTMLScriptElement>(("script[data-website-id]"))
+        ?.attributes
+        .getNamedItem("data-salt")
+        ?.textContent;
+
+      return salt;
+    },
+  );
+
+  expect(salt).toBe("2026-10-30\"\\</script>");
+});
+
+test("`saltRotation` matches", async ({ page }) => {
+  await page.goto("/");
+
+  const saltRotation = await page.evaluate(
+    async () => {
+      const saltRotation = document
+        .querySelector<HTMLScriptElement>(("script[data-website-id]"))
+        ?.attributes
+        .getNamedItem("data-salt-rotation")
+        ?.textContent;
+
+      return saltRotation;
+    },
+  );
+
+  expect(saltRotation).toBe("daily");
+});
+
 test("`tag` matches", async ({ page }) => {
   await page.goto("/");
 
