@@ -1,14 +1,31 @@
 import { expect, test } from "@playwright/test";
+import umami from "@yeskunall/astro-umami";
 
 // NOTE: All tests query using the `website-id` data attribute because this is
 // the only required property as per the docs. In other words, if the script
 // exists on the page, then it should be safe to query based on this selector.
 
-// The scenario configures these options with values that break naive
-// interpolation into the inline script: a quote, a backslash, a newline, and a
-// `</script>` sequence that would otherwise end the script block.
+// The scenario configures `tag` with a value that breaks naive interpolation
+// into the inline script: a quote, a backslash, a newline, and a `</script>`
+// sequence that would otherwise end the script block.
 const tag = "spring \"sale\" from C:\\temp\n</script><script>window.umamiBrokeOut = true</script>";
-const trackerScriptName = "tracker\".js";
+
+async function getScript(
+  options: Parameters<typeof umami>[0],
+  command: "dev" | "build" = "build",
+) {
+  let script = "";
+  const integration = umami(options);
+
+  await integration.hooks["astro:config:setup"]!({
+    command,
+    injectScript: (_stage: string, content: string) => {
+      script = content;
+    },
+  } as never);
+
+  return script;
+}
 
 test("`umami.disabled` is set by default in development", async ({ page }) => {
   await page.goto("/");
@@ -123,9 +140,17 @@ test("`src` matches", async ({ page }) => {
     },
   );
 
-  // The scenario sets a `trackerScriptName` containing a quote, so this also
-  // fails if the injected script stops escaping the URL.
-  expect(src).toBe(`https://cloud.umami.is/${trackerScriptName}`);
+  expect(src).toBe("https://cloud.umami.is/script.js");
+});
+
+test("`trackerScriptName` is escaped in the `src` URL", async () => {
+  const script = await getScript({
+    id: "94db1cb1-74f4-4a40-ad6c-962362670409",
+    trackerScriptName: "tracker\".js",
+  });
+
+  expect(() => new Function(script)).not.toThrow();
+  expect(script).toContain(`script.setAttribute("src", "https://cloud.umami.is/tracker\\".js");`);
 });
 
 test("`id` matches", async ({ page }) => {

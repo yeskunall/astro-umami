@@ -30,7 +30,6 @@ export default defineConfig({
             hostUrl: "https://analytics.eu.umami.is",
             performance: true,
             tag: "spring \"sale\" from C:\\temp\n</script><script>window.umamiBrokeOut = true</script>",
-            trackerScriptName: "tracker\".js",
             withPartytown: true,
           }),
     createIntegrationWatcher(

@@ -92,10 +92,11 @@ interface Options extends UmamiOptions {
   withPartytown?: boolean;
 }
 
-// Serialize values before interpolating them into the inline script. JSON
-// handles quotes, backslashes, and control characters; `<` is escaped as well
-// because only `<` can close the surrounding `<script>` block.
-const jsString = (value: string) => JSON.stringify(value).replace(/</g, "\\u003C");
+// Serialize a value as a JavaScript string literal that is safe to embed in the
+// inline script. JSON handles quotes, backslashes, and control characters; `<`
+// is escaped as well because only `<` can close the surrounding `<script>`.
+const toInlineScriptLiteral = (value: string) =>
+  JSON.stringify(value).replace(/</g, "\\u003C");
 
 async function getInjectableWebAnalyticsContent({
   mode,
@@ -127,18 +128,18 @@ async function getInjectableWebAnalyticsContent({
   const configAsString = [
     !autotrack ? `script.setAttribute("data-auto-track", "${autotrack}")` : "",
     !autoPageview ? `script.setAttribute("data-auto-pageview", "${autoPageview}")` : "",
-    beforeSendHandler ? `script.setAttribute("data-before-send", ${jsString(beforeSendHandler)})` : "",
+    beforeSendHandler ? `script.setAttribute("data-before-send", ${toInlineScriptLiteral(beforeSendHandler)})` : "",
     domains.length > 0
-      ? `script.setAttribute("data-domains", ${jsString(domains.join(","))})`
+      ? `script.setAttribute("data-domains", ${toInlineScriptLiteral(domains.join(","))})`
       : "",
     doNotTrack ? `script.setAttribute("data-do-not-track", "${doNotTrack}")` : "",
     excludeHash ? `script.setAttribute("data-exclude-hash", "${excludeHash}")` : "",
     excludeSearch ? `script.setAttribute("data-exclude-search", "${excludeSearch}")` : "",
     hostUrl !== "https://cloud.umami.is"
-      ? `script.setAttribute("data-host-url", ${jsString(hostUrl)})`
+      ? `script.setAttribute("data-host-url", ${toInlineScriptLiteral(hostUrl)})`
       : "",
     performance ? `script.setAttribute("data-performance", "${performance}")` : "",
-    tag ? `script.setAttribute("data-tag", ${jsString(tag)})` : "",
+    tag ? `script.setAttribute("data-tag", ${toInlineScriptLiteral(tag)})` : "",
     withPartytown ? `script.setAttribute("type", "text/partytown")` : "",
   ]
     .filter(Boolean)
@@ -148,9 +149,9 @@ async function getInjectableWebAnalyticsContent({
     var script = document.createElement("script");
     var viewTransitionsEnabled = document.querySelector("meta[name='astro-view-transitions-enabled']")?.content;
 
-    script.setAttribute("src", ${jsString(src)});
+    script.setAttribute("src", ${toInlineScriptLiteral(src)});
     script.setAttribute("defer", true);
-    script.setAttribute("data-website-id", ${jsString(id)});
+    script.setAttribute("data-website-id", ${toInlineScriptLiteral(id)});
     ${configAsString};
 
     if (!!viewTransitionsEnabled) {
