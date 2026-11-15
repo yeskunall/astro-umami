@@ -123,6 +123,22 @@ async function getInjectableWebAnalyticsContent({
     withPartytown = false,
   } = options;
 
+  if (!id) {
+    const message = "[astro-umami] The `id` option is required.";
+
+    if (mode === "production") {
+      throw new Error(message);
+    }
+
+    console.error(message);
+
+    return `
+      (function () {
+        throw new Error(${JSON.stringify(message)});
+      })()
+    `;
+  }
+
   const hostname = new URL(endpointUrl).hostname;
   const src = `https://${hostname}/${trackerScriptName}`;
   const configAsString = [
