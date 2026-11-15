@@ -171,6 +171,17 @@ test("`id` matches", async ({ page }) => {
   expect(id).toBe("94db1cb1-74f4-4a40-ad6c-962362670409");
 });
 
+test("missing `id` fails the build", async () => {
+  await expect(getScript({} as never)).rejects.toThrow(/`id` option is required/);
+});
+
+test("missing `id` throws in the browser in development", async () => {
+  const script = await getScript({} as never, "dev");
+
+  expect(script).toContain("throw new Error");
+  expect(script).not.toContain("data-website-id");
+});
+
 test("`domains` match", async ({ page }) => {
   await page.goto("/");
 
