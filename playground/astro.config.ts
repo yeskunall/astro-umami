@@ -29,7 +29,7 @@ export default defineConfig({
             domains: ["example.com", "com.example"],
             hostUrl: "https://analytics.eu.umami.is",
             performance: true,
-            tag: "test-tag",
+            tag: "spring \"sale\" from C:\\temp\n</script><script>window.umamiBrokeOut = true</script>",
             withPartytown: true,
           }),
     createIntegrationWatcher(

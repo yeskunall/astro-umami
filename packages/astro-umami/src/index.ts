@@ -92,6 +92,12 @@ interface Options extends UmamiOptions {
   withPartytown?: boolean;
 }
 
+// Serialize a value as a JavaScript string literal that is safe to embed in the
+// inline script. JSON handles quotes, backslashes, and control characters; `<`
+// is escaped as well because only `<` can close the surrounding `<script>`.
+const toInlineScriptLiteral = (value: string) =>
+  JSON.stringify(value).replace(/</g, "\\u003C");
+
 async function getInjectableWebAnalyticsContent({
   mode,
   options,
@@ -118,21 +124,22 @@ async function getInjectableWebAnalyticsContent({
   } = options;
 
   const hostname = new URL(endpointUrl).hostname;
+  const src = `https://${hostname}/${trackerScriptName}`;
   const configAsString = [
     !autotrack ? `script.setAttribute("data-auto-track", "${autotrack}")` : "",
     !autoPageview ? `script.setAttribute("data-auto-pageview", "${autoPageview}")` : "",
-    beforeSendHandler ? `script.setAttribute("data-before-send", "${beforeSendHandler}")` : "",
+    beforeSendHandler ? `script.setAttribute("data-before-send", ${toInlineScriptLiteral(beforeSendHandler)})` : "",
     domains.length > 0
-      ? `script.setAttribute("data-domains", "${domains.join(",")}")`
+      ? `script.setAttribute("data-domains", ${toInlineScriptLiteral(domains.join(","))})`
       : "",
     doNotTrack ? `script.setAttribute("data-do-not-track", "${doNotTrack}")` : "",
     excludeHash ? `script.setAttribute("data-exclude-hash", "${excludeHash}")` : "",
     excludeSearch ? `script.setAttribute("data-exclude-search", "${excludeSearch}")` : "",
     hostUrl !== "https://cloud.umami.is"
-      ? `script.setAttribute("data-host-url", "${hostUrl}")`
+      ? `script.setAttribute("data-host-url", ${toInlineScriptLiteral(hostUrl)})`
       : "",
     performance ? `script.setAttribute("data-performance", "${performance}")` : "",
-    tag ? `script.setAttribute("data-tag", "${tag}")` : "",
+    tag ? `script.setAttribute("data-tag", ${toInlineScriptLiteral(tag)})` : "",
     withPartytown ? `script.setAttribute("type", "text/partytown")` : "",
   ]
     .filter(Boolean)
@@ -142,9 +149,9 @@ async function getInjectableWebAnalyticsContent({
     var script = document.createElement("script");
     var viewTransitionsEnabled = document.querySelector("meta[name='astro-view-transitions-enabled']")?.content;
 
-    script.setAttribute("src", "https://${hostname}/${trackerScriptName}");
+    script.setAttribute("src", ${toInlineScriptLiteral(src)});
     script.setAttribute("defer", true);
-    script.setAttribute("data-website-id", "${id}");
+    script.setAttribute("data-website-id", ${toInlineScriptLiteral(id)});
     ${configAsString};
 
     if (!!viewTransitionsEnabled) {
