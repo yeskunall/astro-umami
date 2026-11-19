@@ -1,4 +1,4 @@
-import type { AstroIntegration } from "astro";
+import type { AstroIntegration, AstroIntegrationLogger } from "astro";
 
 type OptionalExceptFor<T, K extends keyof T> = {
   [P in keyof T]: P extends K ? T[P] : T[P] | undefined;
@@ -99,9 +99,11 @@ const toInlineScriptLiteral = (value: string) =>
   JSON.stringify(value).replace(/</g, "\\u003C");
 
 async function getInjectableWebAnalyticsContent({
+  logger,
   mode,
   options,
 }: {
+  logger: AstroIntegrationLogger;
   mode: "development" | "production";
   options: OptionalExceptFor<Options, "id">;
 }): Promise<string> {
@@ -123,18 +125,18 @@ async function getInjectableWebAnalyticsContent({
     withPartytown = false,
   } = options;
 
-  if (!id) {
-    const message = "[astro-umami] The `id` option is required.";
+  if (typeof id !== "string" || id.trim() === "") {
+    const message = "The `id` option is required.";
 
     if (mode === "production") {
       throw new Error(message);
     }
 
-    console.error(message);
+    logger.error(message);
 
     return `
       (function () {
-        throw new Error(${JSON.stringify(message)});
+        throw new Error(${JSON.stringify(`[astro-umami] ${message}`)});
       })()
     `;
   }
@@ -209,8 +211,9 @@ export default function umamiIntegration(options: OptionalExceptFor<Options, "id
   return {
     name: "@yeskunall/astro-umami",
     hooks: {
-      "astro:config:setup": async ({ command, injectScript }) => {
+      "astro:config:setup": async ({ command, injectScript, logger }) => {
         const script = await getInjectableWebAnalyticsContent({
+          logger,
           mode: command === "dev" ? "development" : "production",
           options,
         });

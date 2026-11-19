@@ -22,6 +22,7 @@ async function getScript(
     injectScript: (_stage: string, content: string) => {
       script = content;
     },
+    logger: { error: () => {} },
   } as never);
 
   return script;
@@ -173,6 +174,12 @@ test("`id` matches", async ({ page }) => {
 
 test("missing `id` fails the build", async () => {
   await expect(getScript({} as never)).rejects.toThrow(/`id` option is required/);
+});
+
+test("empty or non-string `id` fails the build", async () => {
+  for (const id of ["", "   ", 123]) {
+    await expect(getScript({ id } as never)).rejects.toThrow(/`id` option is required/);
+  }
 });
 
 test("missing `id` throws in the browser in development", async () => {
