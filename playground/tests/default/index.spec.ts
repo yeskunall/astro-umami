@@ -22,6 +22,7 @@ async function getScript(
     injectScript: (_stage: string, content: string) => {
       script = content;
     },
+    logger: { error: () => {} },
   } as never);
 
   return script;
@@ -169,6 +170,23 @@ test("`id` matches", async ({ page }) => {
   );
 
   expect(id).toBe("94db1cb1-74f4-4a40-ad6c-962362670409");
+});
+
+test("missing `id` fails the build", async () => {
+  await expect(getScript({} as never)).rejects.toThrow(/`id` option is required/);
+});
+
+test("empty or non-string `id` fails the build", async () => {
+  for (const id of ["", "   ", 123]) {
+    await expect(getScript({ id } as never)).rejects.toThrow(/`id` option is required/);
+  }
+});
+
+test("missing `id` throws in the browser in development", async () => {
+  const script = await getScript({} as never, "dev");
+
+  expect(script).toContain("throw new Error");
+  expect(script).not.toContain("data-website-id");
 });
 
 test("`domains` match", async ({ page }) => {
