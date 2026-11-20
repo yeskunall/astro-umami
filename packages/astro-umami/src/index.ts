@@ -4,6 +4,9 @@ type OptionalExceptFor<T, K extends keyof T> = {
   [P in keyof T]: P extends K ? T[P] : T[P] | undefined;
 } & Pick<T, K>;
 
+const FETCH_CREDENTIALS_VALUES = ["omit", "same-origin", "include"] as const;
+type FetchCredentials = (typeof FETCH_CREDENTIALS_VALUES)[number];
+
 interface UmamiOptions {
   /**
    * By default, Umami initializes pageview tracking, click tracking, path change detection, and optional features like performance tracking. Set this to `false` only if you want to disable tracker initialization entirely and send data yourself using the [tracker functions](https://docs.umami.is/docs/tracker-functions).
@@ -49,6 +52,16 @@ interface UmamiOptions {
    * Set this if you don’t want to collect search parameters from the URL.
    */
   excludeSearch?: boolean;
+  /**
+   * Control the [`credentials`](https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials) mode the tracker uses when it sends collection requests.
+   *
+   * When omitted, the attribute is not emitted and Umami falls back to its own `omit` default, which differs from the browser’s Fetch default.
+   *
+   * This only affects the main tracker’s collection requests; Session Replay and Heatmaps always use `omit`. Credentialed collection across origins also requires a specific allowed origin and `Access-Control-Allow-Credentials: true` on your Umami server, and remains subject to your browser’s SameSite and third-party cookie policies.
+   *
+   * @see [https://github.com/umami-software/umami/blob/v3.4.1/src/tracker/index.ts](https://github.com/umami-software/umami/blob/v3.4.1/src/tracker/index.ts)
+   */
+  fetchCredentials?: FetchCredentials;
   /**
    * Override the location where your analytics data is sent.
    */
@@ -117,6 +130,7 @@ async function getInjectableWebAnalyticsContent({
     endpointUrl = "https://cloud.umami.is",
     excludeHash = false,
     excludeSearch = false,
+    fetchCredentials,
     hostUrl = "https://cloud.umami.is",
     id,
     performance = false,
@@ -141,6 +155,15 @@ async function getInjectableWebAnalyticsContent({
     `;
   }
 
+  if (
+    fetchCredentials !== undefined
+    && !FETCH_CREDENTIALS_VALUES.includes(fetchCredentials as FetchCredentials)
+  ) {
+    throw new Error(
+      `Invalid \`fetchCredentials\` option: ${JSON.stringify(fetchCredentials)}. Expected one of ${FETCH_CREDENTIALS_VALUES.map(value => `"${value}"`).join(", ")}.`,
+    );
+  }
+
   const hostname = new URL(endpointUrl).hostname;
   const src = `https://${hostname}/${trackerScriptName}`;
   const configAsString = [
@@ -153,6 +176,9 @@ async function getInjectableWebAnalyticsContent({
     doNotTrack ? `script.setAttribute("data-do-not-track", "${doNotTrack}")` : "",
     excludeHash ? `script.setAttribute("data-exclude-hash", "${excludeHash}")` : "",
     excludeSearch ? `script.setAttribute("data-exclude-search", "${excludeSearch}")` : "",
+    fetchCredentials !== undefined
+      ? `script.setAttribute("data-fetch-credentials", ${JSON.stringify(fetchCredentials)})`
+      : "",
     hostUrl !== "https://cloud.umami.is"
       ? `script.setAttribute("data-host-url", ${toInlineScriptLiteral(hostUrl)})`
       : "",

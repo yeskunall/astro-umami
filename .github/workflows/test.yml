@@ -41,4 +41,8 @@ jobs:
           pnpm exec playwright install --with-deps chromium --no-shell
       - run: pnpm build
         working-directory: packages/astro-umami
+      - run: pnpm test && pnpm test:types
+        working-directory: packages/astro-umami
       - run: pnpm run test:${{ matrix.scenario }}
+      - if: matrix.scenario == 'default'
+        run: pnpm run test:fetch-credentials
