@@ -6,12 +6,16 @@
   "scripts": {
     "build": "astro check && astro build",
     "dev": "astro dev",
+    "fixture:build": "node scripts/build-fixtures.mjs",
+    "fixture:serve": "node scripts/serve-fixtures.mjs",
+    "fixture:start": "pnpm fixture:build && pnpm fixture:serve",
     "preview": "astro preview",
     "start": "astro dev",
-    "test": "pnpm run test:default && pnpm run test:auto-pageview && pnpm run test:enabled-in-development",
+    "test": "pnpm run test:default && pnpm run test:auto-pageview && pnpm run test:enabled-in-development && pnpm run test:fetch-credentials",
     "test:auto-pageview": "ASTRO_DEV_BACKGROUND=0 PLAYGROUND_SCENARIO=auto-pageview playwright test tests/auto-pageview",
     "test:default": "ASTRO_DEV_BACKGROUND=0 PLAYGROUND_SCENARIO=default playwright test tests/default",
-    "test:enabled-in-development": "ASTRO_DEV_BACKGROUND=0 PLAYGROUND_SCENARIO=enabled-in-development playwright test tests/enabled-in-development"
+    "test:enabled-in-development": "ASTRO_DEV_BACKGROUND=0 PLAYGROUND_SCENARIO=enabled-in-development playwright test tests/enabled-in-development",
+    "test:fetch-credentials": "ASTRO_DEV_BACKGROUND=0 playwright test tests/fetch-credentials.spec.ts"
   },
   "dependencies": {
     "@yeskunall/astro-umami": "workspace:*",
