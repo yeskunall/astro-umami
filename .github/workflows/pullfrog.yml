@@ -29,7 +29,7 @@ jobs:
         with:
           fetch-depth: 1
       - name: Run agent
-        uses: pullfrog/pullfrog@cb3bda7d56a8728500c37e1eda718271e7ec4616 # v0.1.121
+        uses: pullfrog/pullfrog@1f9a2b759b9328677661afb465550adeff6e5b58 # v0.1.139
         with:
           prompt: ${{ inputs.prompt }}
           model: openrouter/deepseek/deepseek-v4.1-flash-1017
