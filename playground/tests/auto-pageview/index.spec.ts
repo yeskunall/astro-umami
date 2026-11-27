@@ -14,10 +14,14 @@ test("`autoPageview` disabled", async ({ page }) => {
     return {
       autoPageview: script?.attributes.getNamedItem("data-auto-pageview")?.textContent,
       autoTrack: script?.attributes.getNamedItem("data-auto-track")?.textContent,
+      salt: script?.attributes.getNamedItem("data-salt")?.textContent,
+      saltRotation: script?.attributes.getNamedItem("data-salt-rotation")?.textContent,
     };
   });
 
   expect(attributes.autoPageview).toBe("false");
-  // The scenario sets only `autoPageview`, so `data-auto-track` must stay absent.
+  // The scenario sets only `autoPageview`, so the other attributes must stay absent.
   expect(attributes.autoTrack).toBeUndefined();
+  expect(attributes.salt).toBeUndefined();
+  expect(attributes.saltRotation).toBeUndefined();
 });
