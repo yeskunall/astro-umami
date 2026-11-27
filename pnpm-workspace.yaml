@@ -7,7 +7,17 @@ minimumReleaseAge: 10080
 saveExact: true
 
 catalog:
-  typescript: 6.0.3
+  # TypeScript 7 (native) provides `tsc` for type checking. `typescript` stays on
+  # TS 6 because API consumers — `@astrojs/check`, `typescript-eslint`, and
+  # tsdown's d.ts emit — cannot load TS 7 yet.
+  "@typescript/native": npm:typescript@7.0.2
+  typescript: npm:@typescript/typescript6@6.0.2
+
+overrides:
+  # Keep the emnapi pair matched. Without this, pnpm resolves @emnapi/runtime to
+  # 2.0.0-beta.2 alongside @emnapi/core 1.11.3, and @astrojs/check fails to load.
+  "@emnapi/core": 1.11.3
+  "@emnapi/runtime": 1.11.3
 
 packages:
   - "packages/*"
