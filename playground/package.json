@@ -19,9 +19,9 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
-    "@playwright/test": "1.65.0",
+    "@playwright/test": "1.65.1",
     "@types/node": "26.6.6",
-    "playwright": "1.65.0",
+    "playwright": "1.65.1",
     "typescript": "catalog:"
   }
 }
